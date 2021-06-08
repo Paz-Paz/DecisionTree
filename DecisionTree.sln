@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entscheidungsbaum.Bsp1", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entscheidungsbaum.Bsp2", "Entscheidungsbaum.Bsp2\Entscheidungsbaum.Bsp2.csproj", "{ABF8A7CE-81D9-4D4D-8BB3-CF640BB70577}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntscheidungsbaumLernen.UnitTests", "EntscheidungsbaumLernen.UnitTests\EntscheidungsbaumLernen.UnitTests.csproj", "{DACA5F1C-2B00-4A83-95EB-CB285EEAD52C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ABF8A7CE-81D9-4D4D-8BB3-CF640BB70577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABF8A7CE-81D9-4D4D-8BB3-CF640BB70577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABF8A7CE-81D9-4D4D-8BB3-CF640BB70577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DACA5F1C-2B00-4A83-95EB-CB285EEAD52C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACA5F1C-2B00-4A83-95EB-CB285EEAD52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACA5F1C-2B00-4A83-95EB-CB285EEAD52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACA5F1C-2B00-4A83-95EB-CB285EEAD52C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

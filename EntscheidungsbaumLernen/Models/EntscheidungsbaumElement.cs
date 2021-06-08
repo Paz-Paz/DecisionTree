@@ -1,7 +1,9 @@
 ﻿using EntscheidungsbaumLernen.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("EntscheidungsbaumLernen.UnitTests")]
 namespace EntscheidungsbaumLernen.Models
 {
   #region CLASS EntscheidungsbaumElement .................................................................................
@@ -19,6 +21,15 @@ namespace EntscheidungsbaumLernen.Models
 
     internal EntscheidungsbaumElement(Type wurzeltyp)
     {
+      if (wurzeltyp == null)
+      {
+        throw new ArgumentNullException(nameof(wurzeltyp), "Übergebener Type darf nicht null sein.");
+      }
+      if (!wurzeltyp.IsEnum)
+      {
+        throw new ArgumentException(nameof(wurzeltyp), "Übergebener Type muss ein Enum sein.");
+      }
+
       this.Wureltyp = wurzeltyp;
       Array attributArray = Enum.GetValues(wurzeltyp);
       foreach (object objekt in attributArray)
