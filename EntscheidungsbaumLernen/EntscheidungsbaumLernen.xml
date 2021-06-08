@@ -28,6 +28,9 @@
         <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@)">
             <inheritdoc/>
         </member>
+        <member name="P:EntscheidungsbaumLernen.Controller.WissensspeicherDatei.EntscheidungsbaumLernen#Interfaces#IWissensspeicherImpl#Next">
+            <inheritdoc/>
+        </member>
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei.LadeBaum">
             <inheritdoc/>
         </member>
@@ -42,6 +45,9 @@
             Speichert das Wissen nur im RAM, so dass es bei jedem Programmneustart neu generiert werden muss.
             </summary>
         </member>
+        <member name="P:EntscheidungsbaumLernen.Controller.WissensspeicherRam.EntscheidungsbaumLernen#Interfaces#IWissensspeicherImpl#Next">
+            <inheritdoc/>
+        </member>
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherRam.LadeBaum">
             <inheritdoc/>
         </member>
@@ -51,14 +57,159 @@
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherRam.SpeichereBaum(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel)">
             <inheritdoc/>
         </member>
+        <member name="T:EntscheidungsbaumLernen.Factorys.DialogKomponenteFactory">
+            <summary>
+            Factory zum Erzeugen der Klasse der Dialogkomponente(n)
+            </summary>
+            <remarks>
+            <br /><b>Versionen:</b><br />
+            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            </remarks>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogKomponenteFactory.Build">
+            <summary>
+            Erzeugt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.IDialogKomponente"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
+            </summary>
+            <returns>Erzeugtes Objekt</returns>
+        </member>
+        <member name="T:EntscheidungsbaumLernen.Factorys.HelperFactory">
+            <summary>
+            Factory zum Erzeugen der Klasse des Helpers
+            </summary>
+            <remarks>
+            <br /><b>Versionen:</b><br />
+            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            </remarks>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.HelperFactory.Build">
+            <summary>
+            Erzeugt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.IHelper"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
+            </summary>
+            <returns>Erzeugtes Objekt</returns>
+        </member>
+        <member name="T:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2">
+            <summary>
+            Factory zum Erzeugen der Klasse des Lern-Algorithmus.
+            </summary>
+            <remarks>
+            <br /><b>Versionen:</b><br />
+            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            </remarks>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2._attributAuswaehler">
+            <summary>
+            Zu verwendender Attributs-Auswähler.
+            </summary>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2._wissensspeicherFactory">
+            <summary>
+            Factory für den Wissensspeicher.
+            </summary>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.Build">
+            <summary>
+            Erzeugt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
+            </summary>
+            <returns>Erzeugtes Objekt</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.AttributauswErstesAttribut">
+            <summary>
+            Setzt als Attributauswähler einen, der prinzipiell immer das erste Attribut dass er findet verwendet.
+            </summary>
+            <remarks>
+            Sehr Laufzeit-Freundlich, dafür (sehr) schlechte Auswahl.
+            </remarks>
+            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.AttributauswGainAbsolut">
+            <summary>
+            Setzt als Attributauswähler einen, der prinzipiell immer das erste Attribut dass er findet verwendet.
+            </summary>
+            <remarks>
+            Sehr Laufzeit-Freundlich, dafür (sehr) schlechte Auswahl.
+            </remarks>
+            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.SpeicherClear">
+            <inheritdoc cref="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.Clear"/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.SpeicherRam">
+            <inheritdoc cref="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddRamSpeicher"/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.SpeicherDatei(System.String@)">
+            <inheritdoc cref="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddDateiSpeicher(System.String@)"/>
+        </member>
+        <member name="T:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory">
+            <summary>
+            Factory zum Erzeugen der Klasse des Wissensspeichers
+            </summary>
+            <remarks>
+            <br /><b>Versionen:</b><br />
+            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            </remarks>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory._response">
+            <summary>
+            Wissensspeicher an sich.
+            </summary>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.Build">
+            <summary>
+            Erzeugt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.IWissensspeicher"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
+            </summary>
+            <returns>Erzeugtes Objekt</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.Clear">
+            <summary>
+            Entfernt alle bisher hinterlegten Wissensspeicher.
+            </summary>
+            <remarks>
+            Falls keiner mehr hinzugefügt wird, wir der "RAM" als Default trotzdem verwendet.
+            </remarks>
+            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddRamSpeicher">
+            <summary>
+            Fügt einen Speicher hinzu, welcher die Daten (nur) im RAM ablegt und nirgends persistent speichert.
+            </summary>
+            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddDateiSpeicher(System.String@)">
+            <summary>
+            Fügt einen Speicher hinzu, welcher aus Datein lesen und in sie schreiben kann.
+            </summary>
+            <param name="pfad">Pfad zur Datei. Falls die Datei nicht existiert wird versucht sie beim ersten Schreiben anzulegen.</param>
+            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+            <exception cref="T:System.NotImplementedException">Datei-Speicher wurde noch (nicht fertig) implementiert.</exception>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddEigenenSpeicher(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl@)">
+            <summary>
+            Fügt einen beliebigen, auch extern erzeugen, Wissensspeicher hinzu.
+            </summary>
+            <remarks>
+            Vorbereitet um in Zukunft das externe Erstellen von Wissensspeichern per <see cref="T:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl"/> zu ermöglichen.
+            </remarks>
+            <param name="wissensspeicher">Hinzuzufügender Wissensspeicher.</param>
+            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.BuildImpl">
+            <summary>
+            Erzeugt die interne Wissensspeicher-Implementierung, welche auch speichern kann.
+            </summary>
+            <returns>Erzeuges Objekt.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddSpeicher(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+            <summary>
+            Fügt den übergebenen Wissensspeicher hinzu.
+            </summary>
+            <param name="wissensspeicher"></param>
+        </member>
         <member name="M:EntscheidungsbaumLernen.Helper.KlassenHelper.ErstellAttributliste``2">
             <summary>
             Erstellt eine Liste aller lesbaren Enum-Attribute des übergebenen Typs.
             </summary>
-            <remarks>
-            Attribut vom Typ <see cref="!:Ergebniss"/> wird ignoriert.
-            </remarks>
             <typeparam name="TBsp">Typ dessen Attribute ausgelesen werden sollen.</typeparam>
+            <typeparam name="TResult">Typ der Eigenschaft, die für die Listenerstellung ignoriert werden soll.</typeparam>
             <returns>Liste der Attribute des Typs. (Kann auch eine leere Liste sein)</returns>
         </member>
         <member name="M:EntscheidungsbaumLernen.Helper.KlassenHelper.GetValue``1(``0,System.Type)">
@@ -254,6 +405,11 @@
             <br /><b>Versionen:</b><br />
             V1.0 06.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
+        </member>
+        <member name="P:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl.Next">
+            <summary>
+            Nächster Wissensspeicher in der Reihe.
+            </summary>
         </member>
         <member name="M:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
             <summary>

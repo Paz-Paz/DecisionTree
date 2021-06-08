@@ -20,6 +20,9 @@ namespace Beispiel2
       // Lernen:
       ILernAlgoritmus<AuftragBeispiel, AuftragAnnehmen> lernAlgoritmus = new LernAlgorithmusFactory<AuftragBeispiel, AuftragAnnehmen>()
                                                                 .AttributauswGainAbsolut()
+                                                                .SpeicherDatei("a.json")
+                                                                .SpeicherRam()
+                                                                .SpeicherRam()
                                                                 .SpeicherRam()
                                                                 .Build();
       IWissensspeicher wissensspeicher = lernAlgoritmus.Lerne(liste);

@@ -14,10 +14,8 @@ namespace EntscheidungsbaumLernen.Helper
     /// <summary>
     /// Erstellt eine Liste aller lesbaren Enum-Attribute des übergebenen Typs.
     /// </summary>
-    /// <remarks>
-    /// Attribut vom Typ <see cref="Ergebniss"/> wird ignoriert.
-    /// </remarks>
     /// <typeparam name="TBsp">Typ dessen Attribute ausgelesen werden sollen.</typeparam>
+    /// <typeparam name="TResult">Typ der Eigenschaft, die für die Listenerstellung ignoriert werden soll.</typeparam>
     /// <returns>Liste der Attribute des Typs. (Kann auch eine leere Liste sein)</returns>
     internal static List<Type> ErstellAttributliste<TBsp, TResult>() where TBsp : class where TResult : Enum
     {

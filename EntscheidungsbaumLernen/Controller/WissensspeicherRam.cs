@@ -17,6 +17,12 @@ namespace EntscheidungsbaumLernen.Controller
     private IWissensspeicherImpl _next = null;
 
     #endregion .............................................................................................................
+    #region Getter/Setter ..................................................................................................
+
+    /// <inheritdoc/>
+    IWissensspeicherImpl IWissensspeicherImpl.Next => this._next;
+
+    #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
 
     /// <inheritdoc/>
@@ -30,9 +36,11 @@ namespace EntscheidungsbaumLernen.Controller
         }
         else
         {
+          Console.WriteLine("Im RAM war nichts gespeichert, nächste Instanz wird aufgerufen...");
           this._baumwurzel = this._next.LadeBaum();
         }
       }
+      Console.WriteLine("Lade Baum aus RAM...");
       return this._baumwurzel;
     }
 
@@ -49,6 +57,7 @@ namespace EntscheidungsbaumLernen.Controller
     /// <inheritdoc/>
     public void SpeichereBaum(IEntscheidungsbaumWurzel wurzel)
     {
+      Console.WriteLine("Speichere Baum in RAM...");
       this._baumwurzel = wurzel;
       this._next?.SpeichereBaum(wurzel);
     }

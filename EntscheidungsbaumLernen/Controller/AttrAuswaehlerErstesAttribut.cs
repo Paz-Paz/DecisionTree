@@ -9,11 +9,6 @@ namespace EntscheidungsbaumLernen.Controller
 
   internal class AttrAuswaehlerErstesAttribut<TBsp, TResult> : IAttributAuswaehler<TBsp, TResult> where TBsp : class where TResult : Enum
   {
-    #region Eigenschaften ..................................................................................................
-
-    private Type _letztes = null;
-
-    #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
     public AttrAuswaehlerErstesAttribut()
     {

@@ -14,8 +14,6 @@ namespace EntscheidungsbaumLernen.Models
 
     private readonly Dictionary<string, object> _kinder = new Dictionary<string, object>();
 
-    private int _anzahlElemente = 0;
-
     #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
 

@@ -12,6 +12,12 @@ namespace EntscheidungsbaumLernen.Interfaces
   /// </remarks>
   internal interface IWissensspeicherImpl : IWissensspeicher
   {
+
+    /// <summary>
+    /// Nächster Wissensspeicher in der Reihe.
+    /// </summary>
+    internal IWissensspeicherImpl Next { get; }
+
     /// <summary>
     /// Setzt den nächsten Wissensspeicher in der Speicher-Kette.
     /// </summary>
