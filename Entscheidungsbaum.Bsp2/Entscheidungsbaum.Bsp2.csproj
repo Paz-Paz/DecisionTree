@@ -3,6 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Version>0.0.1-beta</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Paz-Paz</Authors>
+    <Company></Company>
+    <Product>Entscheidungsbaum Lernverfahren</Product>
+    <Description>Eine leichte Umsetzung für das Entscheidungsbaumverfahren.</Description>
+    <PackageReleaseNotes>Nur zum Testen, und mal erstes Paket erstellen.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
