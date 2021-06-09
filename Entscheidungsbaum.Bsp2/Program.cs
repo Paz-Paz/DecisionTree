@@ -21,13 +21,15 @@ namespace Beispiel2
       ILernAlgoritmus<AuftragBeispiel, AuftragAnnehmen> lernAlgoritmus = new LernAlgorithmusFactory<AuftragBeispiel, AuftragAnnehmen>()
                                                                 .AttributauswGainAbsolut()
                                                                 .SpeicherRam()
+                                                                .SpeicherDatei("a.json")
+                                                                .SpeicherDatei("b.json")
                                                                 .Build();
       IWissensspeicher wissensspeicher = lernAlgoritmus.Lerne(liste);
 
       helper.GibBaumAus(wissensspeicher.LadeBaum());
 
       // Eingeben auszuwertender Daten:
-      AuftragEingabe auftragEingabe = new AuftragEingabe(-1, Bereich.OnlineShop, Aufwand.Gross, Attraktivitaet.Hoch, Bauchgefuehl.Gut);
+      AuftragEingabe auftragEingabe = new AuftragEingabe(-1, Bereich.OnlineShop, Aufwand.Ja, Attraktivitaet.Hoch, Bauchgefuehl.Gut);
 
       // Daten auswerten u. ausgeben:
       IDialogKomponente dialogKomponente = new DialogKomponenteFactory().Build();

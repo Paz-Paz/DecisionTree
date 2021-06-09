@@ -28,19 +28,25 @@
         <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@)">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei.LadeBaum">
+        <member name="P:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.Next">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.LadeBaum">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei.SpeichereBaum(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel)">
+        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+            <inheritdoc/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.SpeichereBaum(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel)">
             <inheritdoc/>
         </member>
         <member name="T:EntscheidungsbaumLernen.Controller.WissensspeicherRam">
             <summary>
             Speichert das Wissen nur im RAM, so dass es bei jedem Programmneustart neu generiert werden muss.
             </summary>
+        </member>
+        <member name="P:EntscheidungsbaumLernen.Controller.WissensspeicherRam.Next">
+            <inheritdoc/>
         </member>
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherRam.LadeBaum">
             <inheritdoc/>
@@ -254,6 +260,11 @@
             <br /><b>Versionen:</b><br />
             V1.0 06.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
+        </member>
+        <member name="P:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl.Next">
+            <summary>
+            Nächster Wissensspeicher in der Kette, oder Null wenn keiner mehr gespeichert ist.
+            </summary>
         </member>
         <member name="M:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
             <summary>
