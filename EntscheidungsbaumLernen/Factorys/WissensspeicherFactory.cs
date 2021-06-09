@@ -1,5 +1,6 @@
 ﻿using EntscheidungsbaumLernen.Controller;
 using EntscheidungsbaumLernen.Interfaces;
+using System;
 
 namespace EntscheidungsbaumLernen.Factorys
 {
@@ -18,9 +19,9 @@ namespace EntscheidungsbaumLernen.Factorys
       return this;
     }
 
-    public WissensspeicherFactory AddDateiSpeicher(in string dateipfad)
+    public WissensspeicherFactory AddDateiSpeicher<TResult>(in string dateipfad) where TResult : Enum
     {
-      this.AddSpeicher(new WissensspeicherDatei(dateipfad));
+      this.AddSpeicher(new WissensspeicherDatei<TResult>(dateipfad));
       return this;
     }
 
@@ -30,11 +31,15 @@ namespace EntscheidungsbaumLernen.Factorys
       if (this._response == null)
       {
         this._response = wissensspeicher;
+        return;
       }
-      else
+
+      IWissensspeicherImpl letzterSpeicher = this._response;
+      while (letzterSpeicher.Next != null)
       {
-        this._response.SetNaechsteInstanz(wissensspeicher);
+        letzterSpeicher = letzterSpeicher.Next;
       }
+      letzterSpeicher.SetNaechsteInstanz(wissensspeicher);
     }
 
     internal IWissensspeicherImpl BuildImpl()
