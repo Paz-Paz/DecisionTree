@@ -65,7 +65,7 @@ namespace EntscheidungsbaumLernen.Factorys
     /// <exception cref="NotImplementedException">Datei-Speicher wurde noch (nicht fertig) implementiert.</exception>
     public WissensspeicherFactory AddDateiSpeicher(in string pfad)
     {
-      this.AddSpeicher(new WissensspeicherDatei(pfad));
+      this.AddSpeicher(new WissensspeicherDatei<TResult>(dateipfad));
       return this;
     }
 
@@ -94,12 +94,16 @@ namespace EntscheidungsbaumLernen.Factorys
     {
       if (this._response == null)
       {
-        return new WissensspeicherRam();
+        this._response = wissensspeicher;
+        return;
       }
-      else
+
+      IWissensspeicherImpl letzterSpeicher = this._response;
+      while (letzterSpeicher.Next != null)
       {
-        return this._response;
+        letzterSpeicher = letzterSpeicher.Next;
       }
+      letzterSpeicher.SetNaechsteInstanz(wissensspeicher);
     }
 
     #endregion .............................................................................................................

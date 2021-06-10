@@ -12,11 +12,16 @@ namespace EntscheidungsbaumLernen.Interfaces
   /// </remarks>
   internal interface IWissensspeicherImpl : IWissensspeicher
   {
+    #region CLASS PreisAnpasserTest ........................................................................................
+    #region Getter/Setter ..................................................................................................
 
     /// <summary>
-    /// Nächster Wissensspeicher in der Reihe.
+    /// Nächster Wissensspeicher in der Kette, oder Null wenn keiner mehr gespeichert ist.
     /// </summary>
-    internal IWissensspeicherImpl Next { get; }
+    public IWissensspeicherImpl Next { get; }
+
+    #endregion .............................................................................................................
+    #region Oeffentliche Methoden ..........................................................................................
 
     /// <summary>
     /// Setzt den nächsten Wissensspeicher in der Speicher-Kette.
@@ -34,5 +39,8 @@ namespace EntscheidungsbaumLernen.Interfaces
     /// <param name="wurzel">Wurzel des zu speichernden Baumes.</param>
     public void SpeichereBaum(IEntscheidungsbaumWurzel wurzel);
 
+    #endregion .............................................................................................................
   }
+
+  #endregion .............................................................................................................
 }

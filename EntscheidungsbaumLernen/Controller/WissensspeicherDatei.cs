@@ -1,9 +1,13 @@
 ﻿using EntscheidungsbaumLernen.Interfaces;
+using EntscheidungsbaumLernen.Models;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace EntscheidungsbaumLernen.Controller
 {
-  internal class WissensspeicherDatei : IWissensspeicherImpl
+  internal class WissensspeicherDatei<TResult> : IWissensspeicherImpl where TResult : Enum
   {
     #region Eigenschaften ..................................................................................................
 
@@ -28,27 +32,45 @@ namespace EntscheidungsbaumLernen.Controller
     IWissensspeicherImpl IWissensspeicherImpl.Next => this._next;
 
     #endregion .............................................................................................................
+    #region Getter/Setter ..................................................................................................
+
+    /// <inheritdoc/>
+    public IWissensspeicherImpl Next => this._next;
+
+    #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
 
     /// <inheritdoc/>
     public IEntscheidungsbaumWurzel LadeBaum()
     {
-      // TODO: Lade aus Datei fertig implementieren...
 
-      if (this._next == null)
+      string json = null;
+      try
       {
-        throw new InvalidCastException("Noch kein Baum zum Laden gespeichert.");
+        if (File.Exists(this._datei))
+        {
+          json = File.ReadAllText(this._datei);
+        }
       }
-      else
+      catch (Exception e)
       {
+        Console.WriteLine($"Exception beim Speichern in Datei: {e.Message}");
+      }
+
+      if (string.IsNullOrWhiteSpace(json))
+      {
+        if (this._next == null)
+        {
+          throw new InvalidCastException("Noch kein Baum zum Laden gespeichert.");
+        }
         Console.WriteLine($"Datei '{this._datei}' konnte nicht gelesen werden, nächste Instanz wird aufgerufen...");
-        return this._next.LadeBaum();
+        return this._next?.LadeBaum();
       }
 
-      //JsonSerializer.Deserialize<IEntscheidungsbaumWurzel>()
+      SpeicherKnoten baum = JsonSerializer.Deserialize<SpeicherKnoten>(json);
+      IEntscheidungsbaumWurzel wurzel = this.ErzeugeIEntscheidungsbaumWurzel(baum);
+      return wurzel;
 
-      //Console.WriteLine($"Lade Baum aus Datei '{this._datei}'...");
-      //throw new NotImplementedException();
     }
 
     /// <inheritdoc/>
@@ -64,17 +86,100 @@ namespace EntscheidungsbaumLernen.Controller
     /// <inheritdoc/>
     public void SpeichereBaum(IEntscheidungsbaumWurzel wurzel)
     {
-      // TODO: Speichere in Datei fertig implementieren...
+      SpeicherKnoten speicherStruktur = this.ErzeugeSpeicherbaum(wurzel);
+      string json = JsonSerializer.Serialize(speicherStruktur, new JsonSerializerOptions() { WriteIndented = true, MaxDepth = 100, IgnoreNullValues = true });
 
-      // Erzeugt immer "object cycle", warum auch immer...
-      //string json = JsonSerializer.Serialize(wurzel, new JsonSerializerOptions() { WriteIndented = true, MaxDepth = 100 ,IgnoreNullValues = true});
-      //Console.WriteLine(json);
+      try
+      {
+        if (File.Exists(this._datei))
+        {
+          File.Delete(this._datei);
+        }
+        File.WriteAllText(this._datei, json);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine($"Exception beim Speichern in Datei: {e.Message}");
+      }
+
       Console.WriteLine($"Speichere Baum in Datei '{this._datei}'...");
       this._next?.SpeichereBaum(wurzel);
       //throw new NotImplementedException();
     }
 
     #endregion .............................................................................................................
+    #region Private Methoden ...............................................................................................
+
+    private EntscheidungsbaumElement<TResult> ErzeugeIEntscheidungsbaumWurzel(in SpeicherKnoten knoten)
+    {
+      Type wurzeltype = Type.GetType(knoten.Wureltyp);
+      EntscheidungsbaumElement<TResult> wurzel = new EntscheidungsbaumElement<TResult>(wurzeltype);
+
+      Array ergebnisse = Enum.GetValues(typeof(TResult));
+
+      foreach (string kategorie in knoten.Kinder.Keys)
+      {
+        //object kind = Enum.Parse(wurzeltype, kategorie);
+        object kind = knoten.Kinder[kategorie];
+
+        bool gefunden = false;
+        foreach (object erg in ergebnisse)
+        {
+          if (kind.ToString() == erg.ToString())
+          {
+            wurzel.SetKind(kategorie, (TResult)Enum.Parse(typeof(TResult), kind.ToString()));
+            gefunden = true;
+            break;
+          }
+        }
+
+        if (gefunden)
+        {
+          continue;
+        }
+
+        SpeicherKnoten kindKnoten = JsonSerializer.Deserialize<SpeicherKnoten>(kind.ToString());
+        wurzel.SetKind(kategorie, this.ErzeugeIEntscheidungsbaumWurzel(kindKnoten));
+      }
+
+      return wurzel;
+    }
+
+    private SpeicherKnoten ErzeugeSpeicherbaum(IEntscheidungsbaumWurzel wurzel)
+    {
+      SpeicherKnoten knoten = new SpeicherKnoten();
+      knoten.Wureltyp = wurzel.Wureltyp.AssemblyQualifiedName;
+
+
+      Array kategorien = Enum.GetValues(wurzel.Wureltyp);
+      foreach (object kategorie in kategorien)
+      {
+        string katString = kategorie.ToString();
+        object kind = wurzel.GetKind(katString);
+        if (wurzel.IstBlatt(katString))
+        {
+          knoten.Kinder.Add(katString, kind.ToString());
+        }
+        else
+        {
+          knoten.Kinder.Add(katString, this.ErzeugeSpeicherbaum((IEntscheidungsbaumWurzel)kind));
+        }
+      }
+
+      return knoten;
+    }
+
+    #endregion .............................................................................................................
+    #region CLASS SpeicherBaum .............................................................................................
+    public class SpeicherKnoten
+    {
+      public Dictionary<string, object> Kinder { get; set; } = new Dictionary<string, object>();
+
+      public string Wureltyp { get; set; }
+
+    }
+    #endregion .............................................................................................................
+
   }
 
 }

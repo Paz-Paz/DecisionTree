@@ -93,7 +93,7 @@ namespace EntscheidungsbaumLernen.Factorys
     /// <inheritdoc cref="WissensspeicherFactory.AddDateiSpeicher(in string)"/>
     public LernAlgorithmusFactory<TBsp, TResult> SpeicherDatei(in string pfad)
     {
-      this._wissensspeicherFactory.AddDateiSpeicher(pfad);
+      this._wissensspeicherFactory.AddDateiSpeicher<TResult>(pfad);
       return this;
     }
 
