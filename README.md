@@ -13,6 +13,7 @@
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/Paz-Paz/DecisionTree)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Paz-Paz/DecisionTree)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Paz-Paz/DecisionTree)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Paz-Paz/DecisionTree)
 
 ## Zusammenfassung:
 Einfaches C#-Programm welches eine Liste entgegen nimmt und daraus einen Entscheidungsbaum baut.
