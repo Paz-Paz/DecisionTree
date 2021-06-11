@@ -1,22 +1,18 @@
 # DecisionTree
- Übung zum Entscheidungsbaum-Lernen, Entstanden aus meinem aktuellen Uni-Kurs.
+Übung zum Entscheidungsbaum-Lernen, Entstanden aus meinem aktuellen Uni-Kurs.
 
-## Erste Tests mit Icons:
 ![GitHub](https://img.shields.io/github/license/Paz-Paz/DecisionTree)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Paz-Paz/DecisionTree/.NET/main)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Paz-Paz/DecisionTree)
 
-![GitHub all releases](https://img.shields.io/github/downloads/Paz-Paz/DecisionTree/total)
-![GitHub issues](https://img.shields.io/github/issues-raw/Paz-Paz/DecisionTree)
-![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/Paz-Paz/DecisionTree)
-![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/Paz-Paz/DecisionTree)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/Paz-Paz/DecisionTree)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Paz-Paz/DecisionTree)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Paz-Paz/DecisionTree)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/Paz-Paz/DecisionTree)
+## Inhaltsverzeichniss
+* [Zusammenfassung](#zusammenfassung)
+* [Liste an Eigenschaften](#liste-an-eigenschaften)
+* [Ideen die noch offen sind](#ideen-die-noch-offen-sind)
+* [Anwendungsbeispiel](#anwendungsbeispiel)
 
 ## Zusammenfassung:
-Einfaches C#-Programm welches eine Liste entgegen nimmt und daraus einen Entscheidungsbaum baut.
+Einfache C#-Bibliothek welche eine Liste entgegen nimmt und daraus einen Entscheidungsbaum baut.
 
 ## Liste an Eigenschaften:
 - Es ist möglich einen erzeuten Baum in eine Datei zu speichern und ihn später wieder aufzurufen.
@@ -32,7 +28,7 @@ Wobei hier aktuell einfach nicht genug Zeit ist.
 - Ein Beispuel umbauen, so dass CSV oder etwas ähnliches ausgelesen werden können.
 
 ## Anwendungsbeispiel:
-### Entscheidungsbaum.Bsp2:
+Aus Entscheidungsbaum.Bsp2:
 ```
 IHelper helper = new HelperFactory().Build();
 
