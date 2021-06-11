@@ -24,7 +24,7 @@ Wobei hier aktuell einfach nicht genug Zeit ist.
 - Schnittstelle nach außen verbessern (Statt den aktuell Interfaces + Factory's nur noch 2 (Lernen, Nutzen))
 - ILogger hinzufügen. (Erzeugt aber zusätzliche Paket-Abhängigkeiten (`Microsoft.Extensions.Logging`)
 - Dependenci Injection hinzufügen (Erzeugt aber zusätzliche Abhängigkeiten (`Microsoft.Extensions.DependencyInjection`))
-- Hinzufügen von extern erzeugen Speicher-Objekten.
+- Funktion zum Hinzufügen von extern erzeugten Speicher-Methoden hinzufügen.
 - Ein Beispuel umbauen, so dass CSV oder etwas ähnliches ausgelesen werden können.
 
 ## Anwendungsbeispiel:
