@@ -19,7 +19,23 @@ namespace EntscheidungsbaumLernen.Helper
 
     #region Paket-Interne Methoden .........................................................................................
 
-    /// <inheritdoc cref="IHelper.GibAttributlisteAufKonsoleAus(in List{Type})"/>
+    /// <summary>
+    /// Schreibt die Liste der übergebenen Attribute auf die Konsole.
+    /// </summary>
+    /// <remarks>
+    /// <b>Beispiel:</b><br />
+    /// <example>
+    /// <code>
+    /// Attributliste:<br />
+    /// *) Attraktiv<br />
+    /// *) Preis<br />
+    /// *) Loge<br />
+    /// *) Wetter<br />
+    /// *) ...
+    ///  </code>
+    /// </example>
+    /// </remarks>
+    /// <param name="liste">Liste der auszugebenen Attribute.</param>
     internal static void GibAttributlisteAufKonsoleAus(in List<Type> liste)
     {
       if (liste?.Count == 0)
@@ -34,7 +50,23 @@ namespace EntscheidungsbaumLernen.Helper
       }
     }
 
-    /// <inheritdoc cref="IHelper.GibBaumAus(in IEntscheidungsbaumWurzel)"/>
+    /// <summary>
+    /// Gibt den Baum auf der Konsole aus.
+    /// </summary>
+    /// <remarks>
+    /// <b>Beispiel:</b><br />
+    /// <example>
+    /// <code>
+    /// Baumstruktur:<br />
+    /// Gruppe<br />
+    ///  ├ Freunde: Kategorie<br />
+    ///  │  ├ AC: Ja<br />
+    ///  │  ├ KO: Attraktiv<br />
+    /// .....
+    ///  </code>
+    /// </example>
+    /// </remarks>
+    /// <param name="wurzel">Wurzelknoten des Entscheidungsbaumes.</param>
     internal static void GibBaumAus(in IEntscheidungsbaumWurzel wurzel)
     {
       Console.WriteLine("\nBaumstruktur:");
@@ -42,7 +74,12 @@ namespace EntscheidungsbaumLernen.Helper
       GibBaumAus(wurzel, new List<string>());
     }
 
-    /// <inheritdoc cref="IHelper.GibBeispiellisteAufKonsoleAus{TBsp, TResult}(in List{TBsp})"/>
+    /// <summary>
+    /// Gibt die übergebene Beispielliste als Tabelle auf der Konsole aus.
+    /// </summary>
+    /// <typeparam name="TBsp">Klasse der Beispiel-Elemente.</typeparam>
+    /// <typeparam name="TResult">Eigenschaft des Ergebnisses, um es ganz rechts darzustellen.</typeparam>
+    /// <param name="beispielliste">Liste der auszugebenden Beispiele.</param>
     internal static void GibBeispiellisteAufKonsoleAus<TBsp, TResult>(in List<TBsp> beispielliste) where TBsp : class where TResult : Enum
     {
       if (beispielliste?.Count == 0)

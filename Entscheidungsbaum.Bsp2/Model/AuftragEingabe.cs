@@ -2,6 +2,13 @@
 {
   public class AuftragEingabe
   {
+
+    public AuftragEingabe(Bereich bereich, Aufwand aufwand, Attraktivitaet attraktivitaet, Bauchgefuehl bauchgefuehl)
+      : this(-1, bereich, aufwand, attraktivitaet, bauchgefuehl)
+    {
+      /* nothing */
+    }
+
     public AuftragEingabe(int kdnr, Bereich bereich, Aufwand aufwand, Attraktivitaet attraktivitaet, Bauchgefuehl bauchgefuehl)
     {
       this.KdNr = kdnr;
@@ -10,6 +17,7 @@
       this.Attraktivitaet = attraktivitaet;
       this.Bauchgefuehl = bauchgefuehl;
     }
+
     public int KdNr { get; }
     public Bereich Bereich { get; }
     public Aufwand Aufwand { get; }

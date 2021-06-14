@@ -9,7 +9,7 @@ namespace EntscheidungsbaumLernen.Interfaces
   /// <br /><b>Versionen:</b><br />
   /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
   /// </remarks>
-  public interface IEntscheidungsbaumWurzel
+  internal interface IEntscheidungsbaumWurzel
   {
     /// <summary>
     /// Typ des aktuellen Knotens.

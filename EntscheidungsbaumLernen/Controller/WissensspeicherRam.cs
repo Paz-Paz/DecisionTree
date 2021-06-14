@@ -12,7 +12,7 @@ namespace EntscheidungsbaumLernen.Controller
   /// <br /><b>Versionen:</b><br />
   /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
   /// </remarks>
-  internal class WissensspeicherRam : IWissensspeicherImpl
+  internal class WissensspeicherRam : IWissensspeicher
   {
     #region Eigenschaften ..................................................................................................
 
@@ -24,13 +24,13 @@ namespace EntscheidungsbaumLernen.Controller
     /// <summary>
     /// Nächser Speicher in der Kette.
     /// </summary>
-    private IWissensspeicherImpl _next = null;
+    private IWissensspeicher _next = null;
 
     #endregion .............................................................................................................
     #region Getter/Setter ..................................................................................................
 
     /// <inheritdoc/>
-    public IWissensspeicherImpl Next => this._next;
+    public IWissensspeicher Next => this._next;
 
     #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
@@ -48,6 +48,7 @@ namespace EntscheidungsbaumLernen.Controller
         {
           Console.WriteLine("Im RAM war nichts gespeichert, nächste Instanz wird aufgerufen...");
           this._baumwurzel = this._next.LadeBaum();
+          return this._baumwurzel;
         }
       }
       Console.WriteLine("Lade Baum aus RAM...");
@@ -55,7 +56,7 @@ namespace EntscheidungsbaumLernen.Controller
     }
 
     /// <inheritdoc/>
-    public void SetNaechsteInstanz(IWissensspeicherImpl wissensspeicher)
+    public void SetNaechsteInstanz(IWissensspeicher wissensspeicher)
     {
       if (this._next != null)
       {

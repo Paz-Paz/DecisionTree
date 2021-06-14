@@ -13,14 +13,14 @@ namespace EntscheidungsbaumLernen.Factorys
   /// <br /><b>Versionen:</b><br />
   /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
   /// </remarks>
-  public class WissensspeicherFactory
+  internal class WissensspeicherFactory
   {
     #region Eigenschaften ..................................................................................................
 
     /// <summary>
     /// Wissensspeicher an sich.
     /// </summary>
-    private IWissensspeicherImpl _response = null;
+    private IWissensspeicher _response = null;
 
     #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
@@ -29,9 +29,14 @@ namespace EntscheidungsbaumLernen.Factorys
     /// Erzeugt ein <see cref="IWissensspeicher"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
     /// </summary>
     /// <returns>Erzeugtes Objekt</returns>
-    public IWissensspeicher Build()
+    internal IWissensspeicher Build()
     {
-      return this.BuildImpl();
+      if (this._response == null)
+      {
+        return new WissensspeicherRam(); ;
+      }
+
+      return this._response;
     }
 
     /// <summary>
@@ -41,7 +46,7 @@ namespace EntscheidungsbaumLernen.Factorys
     /// Falls keiner mehr hinzugefügt wird, wir der "RAM" als Default trotzdem verwendet.
     /// </remarks>
     /// <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
-    public WissensspeicherFactory Clear()
+    internal WissensspeicherFactory Clear()
     {
       this._response = null;
       return this;
@@ -51,7 +56,7 @@ namespace EntscheidungsbaumLernen.Factorys
     /// Fügt einen Speicher hinzu, welcher die Daten (nur) im RAM ablegt und nirgends persistent speichert.
     /// </summary>
     /// <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
-    public WissensspeicherFactory AddRamSpeicher()
+    internal WissensspeicherFactory AddRamSpeicher()
     {
       this.AddSpeicher(new WissensspeicherRam());
       return this;
@@ -64,7 +69,7 @@ namespace EntscheidungsbaumLernen.Factorys
     /// <param name="speichereLeserlich">Wenn true wird die gespeicherte JSON-Datei 'schön' gespeichert, bei false wird sie minimiert gespeichert.</param>
     /// <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
     /// <exception cref="NotImplementedException">Datei-Speicher wurde noch (nicht fertig) implementiert.</exception>
-    public WissensspeicherFactory AddDateiSpeicher<TResult>(in string pfad, in bool speichereLeserlich = false) where TResult : Enum
+    internal WissensspeicherFactory AddDateiSpeicher<TResult>(in string pfad, in bool speichereLeserlich = false) where TResult : Enum
     {
       this.AddSpeicher(new WissensspeicherDatei<TResult>(pfad, speichereLeserlich));
       return this;
@@ -77,28 +82,14 @@ namespace EntscheidungsbaumLernen.Factorys
     /// Fügt einen beliebigen, auch extern erzeugen, Wissensspeicher hinzu.
     /// </summary>
     /// <remarks>
-    /// Vorbereitet um in Zukunft das externe Erstellen von Wissensspeichern per <see cref="IWissensspeicherImpl"/> zu ermöglichen.
+    /// Vorbereitet um in Zukunft das externe Erstellen von Wissensspeichern per <see cref="IWissensspeicher"/> zu ermöglichen.
     /// </remarks>
     /// <param name="wissensspeicher">Hinzuzufügender Wissensspeicher.</param>
     /// <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
-    internal WissensspeicherFactory AddEigenenSpeicher(in IWissensspeicherImpl wissensspeicher)
+    internal WissensspeicherFactory AddEigenenSpeicher(in IWissensspeicher wissensspeicher)
     {
       this.AddSpeicher(wissensspeicher);
       return this;
-    }
-
-    /// <summary>
-    /// Erzeugt die interne Wissensspeicher-Implementierung, welche auch speichern kann.
-    /// </summary>
-    /// <returns>Erzeuges Objekt.</returns>
-    internal IWissensspeicherImpl BuildImpl()
-    {
-      if (this._response == null)
-      {
-        return new WissensspeicherRam(); ;
-      }
-
-      return this._response;
     }
 
     #endregion .............................................................................................................
@@ -108,7 +99,7 @@ namespace EntscheidungsbaumLernen.Factorys
     /// Fügt den übergebenen Wissensspeicher hinzu.
     /// </summary>
     /// <param name="wissensspeicher"></param>
-    private void AddSpeicher(IWissensspeicherImpl wissensspeicher)
+    private void AddSpeicher(IWissensspeicher wissensspeicher)
     {
       if (this._response == null)
       {
@@ -116,7 +107,7 @@ namespace EntscheidungsbaumLernen.Factorys
       }
       else
       {
-        IWissensspeicherImpl letzter = this._response;
+        IWissensspeicher letzter = this._response;
         while (letzter.Next != null)
         {
           letzter = letzter.Next;

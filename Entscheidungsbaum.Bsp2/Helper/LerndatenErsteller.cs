@@ -23,6 +23,7 @@ namespace Entscheidungsbaum.Bsp2.Helper
         new AuftragBeispiel(11, Bereich.OnlineShop, Aufwand.Mittel, Attraktivitaet.Gering, Bauchgefuehl.Gut, AuftragAnnehmen.Ja),
         new AuftragBeispiel(12, Bereich.OnlineShop, Aufwand.Gross, Attraktivitaet.Hoch, Bauchgefuehl.Gut, AuftragAnnehmen.Ja),
       };
+
       return liste;
     }
 
