@@ -30,27 +30,34 @@ Wobei hier aktuell einfach nicht genug Zeit ist.
 ## Anwendungsbeispiel:
 Aus Entscheidungsbaum.Bsp2:
 ```
-IHelper helper = new HelperFactory().Build();
+const string dateiname = @"baum.json";
 
-// Lerndaten erstellen:
-List<AuftragBeispiel> liste = LerndatenErsteller.ErstelleBeispielListe();
-helper.GibBeispiellisteAufKonsoleAus<AuftragBeispiel, AuftragAnnehmen>(liste);
+// Anlernen:
+IDialogLernen<AuftragBeispiel, AuftragAnnehmen> dialogLernen = new DialogLernenFactory<AuftragBeispiel, AuftragAnnehmen>()
+                                      .AddSpeicherRam()
+                                      .AddSpeicherDatei(dateiname)
+                                      .AttributauswaehlerGainAbsolut()
+                                      .Build();
 
-// Lernen:
-ILernAlgoritmus<AuftragBeispiel, AuftragAnnehmen> lernAlgoritmus = new LernAlgorithmusFactory<AuftragBeispiel, AuftragAnnehmen>()
-                                                          .AttributauswGainAbsolut()
-                                                          .SpeicherRam()
-                                                          .SpeicherDatei(@"tree.json", true)
-                                                          .Build();
-IWissensspeicher wissensspeicher = lernAlgoritmus.Lerne(liste);
+dialogLernen.BeispielHinzufuegen(LerndatenErsteller.ErstelleBeispielListe());
 
-helper.GibBaumAus(wissensspeicher.LadeBaum());
+dialogLernen.AusgabeLerndaten();
+dialogLernen.LerneBeispiele();
+dialogLernen.AusgabeBaumstruktur();
+
 
 // Eingeben auszuwertender Daten:
 AuftragEingabe auftragEingabe = new AuftragEingabe(-1, Bereich.OnlineShop, Aufwand.Gross, Attraktivitaet.Hoch, Bauchgefuehl.Gut);
 
-// Daten auswerten u. ausgeben:
-IDialogKomponente dialogKomponente = new DialogKomponenteFactory().Build();
-AuftragAnnehmen ergebniss = dialogKomponente.Abfragen<AuftragEingabe, AuftragAnnehmen>(wissensspeicher.LadeBaum(), auftragEingabe);
-Console.WriteLine($"\nErgebniss: {ergebniss}");
+// gelerntes nutzen:
+IDialogAnwenden<AuftragEingabe, AuftragAnnehmen> dialogAnwenden = new DialogAnwendenFactory<AuftragEingabe, AuftragAnnehmen>()
+                                .AddSpeicherRam()
+                                .AddSpeicherDatei(dateiname)
+                                .Build();
+
+AuftragAnnehmen ergebnis = dialogAnwenden.EingabeAuswerten(auftragEingabe);
+Console.WriteLine($"\nErgebniss: {ergebnis}");
+
+ergebnis = dialogAnwenden.Abfragen();
+Console.WriteLine($"\nErgebniss: {ergebnis}");
 ```

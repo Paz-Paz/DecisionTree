@@ -4,7 +4,7 @@ using EntscheidungsbaumLernen.Factorys;
 using EntscheidungsbaumLernen.Interfaces;
 using System;
 
-namespace Beispiel2
+namespace Entscheidungsbaum.Bsp2
 {
   class Program
   {
@@ -22,7 +22,6 @@ namespace Beispiel2
       dialogLernen.BeispielHinzufuegen(LerndatenErsteller.ErstelleBeispielListe());
 
       dialogLernen.AusgabeLerndaten();
-      dialogLernen.AusgabeBaumstruktur();
       dialogLernen.LerneBeispiele();
       dialogLernen.AusgabeBaumstruktur();
 
