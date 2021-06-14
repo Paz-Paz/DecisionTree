@@ -90,10 +90,10 @@ namespace EntscheidungsbaumLernen.Factorys
       return this;
     }
 
-    /// <inheritdoc cref="WissensspeicherFactory.AddDateiSpeicher(in string)"/>
-    public LernAlgorithmusFactory<TBsp, TResult> SpeicherDatei(in string pfad)
+    /// <inheritdoc cref="WissensspeicherFactory.AddDateiSpeicher(in string, in bool)"/>
+    public LernAlgorithmusFactory<TBsp, TResult> SpeicherDatei(in string pfad, in bool speichereLeserlich = false)
     {
-      this._wissensspeicherFactory.AddDateiSpeicher<TResult>(pfad);
+      this._wissensspeicherFactory.AddDateiSpeicher<TResult>(pfad, speichereLeserlich);
       return this;
     }
 

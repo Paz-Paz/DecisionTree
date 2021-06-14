@@ -8,12 +8,22 @@ namespace EntscheidungsbaumLernen.Controller
   /// <summary>
   /// Speichert das Wissen nur im RAM, so dass es bei jedem Programmneustart neu generiert werden muss.
   /// </summary>
+  /// <remarks>
+  /// <br /><b>Versionen:</b><br />
+  /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+  /// </remarks>
   internal class WissensspeicherRam : IWissensspeicherImpl
   {
     #region Eigenschaften ..................................................................................................
 
+    /// <summary>
+    /// Objekt, in dem die Wurzel des Entscheidungsbaumes gespeichert wird.
+    /// </summary>
     private IEntscheidungsbaumWurzel _baumwurzel = null;
 
+    /// <summary>
+    /// Nächser Speicher in der Kette.
+    /// </summary>
     private IWissensspeicherImpl _next = null;
 
     #endregion .............................................................................................................

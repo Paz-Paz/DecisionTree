@@ -17,8 +17,8 @@ namespace EntscheidungsbaumLernen.Interfaces
     /// <typeparam name="TEingabe">Typ des Eingabe-Objekts.</typeparam>
     /// <typeparam name="TResult">Eigenschaft die als Ergebniss erwartet wird.</typeparam>
     /// <param name="entscheidungsbaumWurzel">Wurzel der gespeicherten Entscheidungsbaum-Struktur.</param>
-    /// <param name="auszulesen">Objekt, welches ausgewertet werden soll.</param>
+    /// <param name="eingabe">Objekt, welches ausgewertet werden soll.</param>
     /// <returns></returns>
-    public TResult Abfragen<TEingabe, TResult>(in IEntscheidungsbaumWurzel entscheidungsbaumWurzel, in TEingabe auszulesen) where TEingabe : class where TResult : Enum;
+    public TResult Abfragen<TEingabe, TResult>(in IEntscheidungsbaumWurzel entscheidungsbaumWurzel, in TEingabe eingabe) where TEingabe : class where TResult : Enum;
   }
 }

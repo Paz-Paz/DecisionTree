@@ -59,7 +59,7 @@ namespace Models
       EntscheidungsbaumElement<ResultEnum> element = new EntscheidungsbaumElement<ResultEnum>(typeof(EigenschaftEnum));
 
       // testen & auswerten:
-      Assert.AreEqual<Type>(typeof(EigenschaftEnum), element.Wureltyp, "Wurzeltyp stimmt nicht überein.");
+      Assert.AreEqual<Type>(typeof(EigenschaftEnum), element.KnotenTyp, "Wurzeltyp stimmt nicht überein.");
     }
 
     [TestMethod]

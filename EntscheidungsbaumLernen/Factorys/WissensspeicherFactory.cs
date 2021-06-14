@@ -61,11 +61,12 @@ namespace EntscheidungsbaumLernen.Factorys
     /// Fügt einen Speicher hinzu, welcher aus Datein lesen und in sie schreiben kann.
     /// </summary>
     /// <param name="pfad">Pfad zur Datei. Falls die Datei nicht existiert wird versucht sie beim ersten Schreiben anzulegen.</param>
+    /// <param name="speichereLeserlich">Wenn true wird die gespeicherte JSON-Datei 'schön' gespeichert, bei false wird sie minimiert gespeichert.</param>
     /// <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
     /// <exception cref="NotImplementedException">Datei-Speicher wurde noch (nicht fertig) implementiert.</exception>
-    public WissensspeicherFactory AddDateiSpeicher(in string pfad)
+    public WissensspeicherFactory AddDateiSpeicher<TResult>(in string pfad, in bool speichereLeserlich = false) where TResult : Enum
     {
-      this.AddSpeicher(new WissensspeicherDatei<TResult>(dateipfad));
+      this.AddSpeicher(new WissensspeicherDatei<TResult>(pfad, speichereLeserlich));
       return this;
     }
 
@@ -94,16 +95,10 @@ namespace EntscheidungsbaumLernen.Factorys
     {
       if (this._response == null)
       {
-        this._response = wissensspeicher;
-        return;
+        return new WissensspeicherRam(); ;
       }
 
-      IWissensspeicherImpl letzterSpeicher = this._response;
-      while (letzterSpeicher.Next != null)
-      {
-        letzterSpeicher = letzterSpeicher.Next;
-      }
-      letzterSpeicher.SetNaechsteInstanz(wissensspeicher);
+      return this._response;
     }
 
     #endregion .............................................................................................................

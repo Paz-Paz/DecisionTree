@@ -25,7 +25,7 @@
   }
   public enum Aufwand
   {
-    Ja,
+    Gross,
     Mittel,
     Gering,
   }

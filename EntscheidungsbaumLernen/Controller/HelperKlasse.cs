@@ -5,6 +5,13 @@ using System.Collections.Generic;
 
 namespace EntscheidungsbaumLernen.Controller
 {
+  /// <summary>
+  /// Klasse um alle Hilffunktionen zentral nach außen geben zu können.
+  /// </summary>
+  /// <remarks>
+  /// <br /><b>Versionen:</b><br />
+  /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+  /// </remarks>
   internal class HelperKlasse : IHelper
   {
     /// <inheritdoc/>
@@ -17,6 +24,6 @@ namespace EntscheidungsbaumLernen.Controller
     public void GibBaumAus(in IEntscheidungsbaumWurzel wurzel) => Ausgeber.GibBaumAus(wurzel);
 
     /// <inheritdoc/>
-    public void GibBeispiellisteAufKonsoleAus<TBsp, TResult>(in List<TBsp> beispielliste) where TBsp : class where TResult : Enum => Ausgeber.GibLerndatenlisteAufKonsoleAus<TBsp, TResult>(beispielliste);
+    public void GibBeispiellisteAufKonsoleAus<TBsp, TResult>(in List<TBsp> beispielliste) where TBsp : class where TResult : Enum => Ausgeber.GibBeispiellisteAufKonsoleAus<TBsp, TResult>(beispielliste);
   }
 }

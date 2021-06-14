@@ -8,22 +8,41 @@ namespace EntscheidungsbaumLernen.Controller
 {
   #region CLASS AttrAuswaehlerGainAbsolut<T> .............................................................................
 
+  /// <summary>
+  /// Attributauswähler, welcher den Gain Absolut Algorithmus verwendet.
+  /// </summary>
+  /// <remarks>
+  /// <br /><b>Versionen:</b><br />
+  /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+  /// </remarks>
+  /// <typeparam name="TBsp">Typ der Klasse der Beispieldaten.</typeparam>
+  /// <typeparam name="TResult">Typ der Eigenschaft des Ergebnisses</typeparam>
   internal class AttrAuswaehlerGainAbsolut<TBsp, TResult> : IAttributAuswaehler<TBsp, TResult> where TBsp : class where TResult : Enum
   {
 
     #region Eigenschaften ..................................................................................................
 
+    /// <summary>
+    /// Anzahl an Dezimalstellen, für die Ausgabe.
+    /// </summary>
     private readonly int _anzDezimalstellen;
 
     #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
 
+    /// <summary>
+    /// Liefert ein <see cref="AttrAuswaehlerGainAbsolut{TBsp, TResult}"/>-Objekt, welches mit einer Ausgabe von 4 Nachkomastellen initalisiert wurde.
+    /// </summary>
     public AttrAuswaehlerGainAbsolut()
       : this(4)
     {
       /* nothing */
     }
 
+    /// <summary>
+    /// Liefert ein <see cref="AttrAuswaehlerGainAbsolut{TBsp, TResult}"/>-Objekt.
+    /// </summary>
+    /// <param name="anzahlDezimalstellenAusgabe">Anzahl an Nachkomastellen für die Ausgabe.</param>
     public AttrAuswaehlerGainAbsolut(int anzahlDezimalstellenAusgabe)
     {
       Console.WriteLine("\nVerwendeter Attributsauswahlalgorithmus: Gain Absolut");
@@ -104,6 +123,13 @@ namespace EntscheidungsbaumLernen.Controller
     #endregion .............................................................................................................
     #region Private Methoden ...............................................................................................
 
+    /// <summary>
+    /// Ermittelt welchen Informationsgewinn die Auswahl des überbgenen <paramref name="attribut"/> bringt.
+    /// </summary>
+    /// <param name="beispielliste">Liste an Beispielen.</param>
+    /// <param name="attribut">Attribut, dessen Informationsgewinn ermittelt werden soll.</param>
+    /// <returns>Menge des Informationsgewinns.</returns>
+    /// <exception cref="ArgumentException">Wenn der übergebe <paramref name="attribut"/> kein <see cref="Enum"/> ist.</exception>
     private double GewinnAttribut(in List<TBsp> beispielliste, Type attribut)
     {
       Checks.EnumCheck(attribut);
@@ -147,6 +173,11 @@ namespace EntscheidungsbaumLernen.Controller
       return result;
     }
 
+    /// <summary>
+    /// Wandelt den <paramref name="wert"/> durch Umrechnen in einen Wahrscheinlichkeitswert um.
+    /// </summary>
+    /// <param name="wert">Umzurechnender Wert.</param>
+    /// <returns>Ermittelter Wahrscheinlichkeitswert.</returns>
     private double BerechneWahscheinlichkeit(double wert)
     {
       if (wert == 0)
@@ -156,15 +187,26 @@ namespace EntscheidungsbaumLernen.Controller
       return (-1) * (wert) * Math.Log2(wert);
     }
 
-
+    /// <summary>
+    /// Runden die übergebene Zahl auf eine Zahl mit <see cref="_anzDezimalstellen"/> Stellen.
+    /// </summary>
+    /// <param name="zuRunden">Zu rundende Zahl.</param>
+    /// <returns>Gerundete Zahl.</returns>
     private double Runde(in double zuRunden)
     {
-      double ergebnis = Math.Round(zuRunden, this._anzDezimalstellen);
-      if (ergebnis == -0)
+      try
       {
-        ergebnis = 0;
+        double ergebnis = Math.Round(zuRunden, this._anzDezimalstellen);
+        if (ergebnis == -0)
+        {
+          ergebnis = 0;
+        }
+        return ergebnis;
       }
-      return ergebnis;
+      catch (Exception)
+      {
+        return 0;
+      }
     }
 
     #endregion .............................................................................................................
