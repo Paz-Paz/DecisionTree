@@ -15,9 +15,9 @@ namespace EntscheidungsbaumLernen.Interfaces
     /// <summary>
     /// Liefert eine Liste aller <see cref="Enum"/>-Attribute der Klasse <typeparamref name="TBsp"/>. Dabei wird die Eigenschaft <typeparamref name="TResult"/> ignoriert.
     /// </summary>
-    /// <typeparam name="TBsp">Klasse, deren Attribute aufgelistet werden sollen.</typeparam>
-    /// <typeparam name="TResult">Eigenschaft, welche beim Auflisten ignoriert werden soll, da sie dem Ergebnis entspricht.</typeparam>
-    /// <returns>Liste an Typen, die die Klasse <typeparamref name="TBsp"/> als Eigenschaften besitzt.</returns>
+    /// <typeparam name="TBsp">Type, dessen Attribute aufgelistet werden sollen.</typeparam>
+    /// <typeparam name="TResult">Type der Eigenschaft, welche beim Auflisten ignoriert werden soll, da sie dem Ergebnis entspricht.</typeparam>
+    /// <returns>Liste an Typen, die die Klasse <typeparamref name="TBsp"/> als Eigenschaften besitzt, kann auch eine leere Liste sein.</returns>
     public List<Type> ErstellAttributliste<TBsp, TResult>() where TBsp : class where TResult : Enum;
 
     /// <summary>

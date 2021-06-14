@@ -10,25 +10,43 @@ namespace EntscheidungsbaumLernen.Controller
 {
   #region CLASS LernAlgorithmusDT ........................................................................................
 
+  /// <summary>
+  /// Eigentlicher Lernalgorithmus für das Entscheidungsbaum-Lernen.
+  /// </summary>
+  /// <typeparam name="TBsp">Typ der Beispiel-Objekte.</typeparam>
+  /// <typeparam name="TResult">Typ der Eigenschaft des Ergebnisses der Beispiel-Objekte.</typeparam>
+  /// <remarks>
+  /// <br /><b>Versionen:</b><br />
+  /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+  /// </remarks>
   internal class LernAlgorithmusDT<TBsp, TResult> : ILernAlgoritmus<TBsp, TResult> where TBsp : class where TResult : Enum
   {
     #region Eigenschaften ..................................................................................................
 
+    /// <summary>
+    /// Objekt zum Auswählen des nächsten Attributs.
+    /// </summary>
     private readonly IAttributAuswaehler<TBsp, TResult> _attributAuswaehler;
 
+    /// <summary>
+    /// Objekt zum Speichern des Baumes.
+    /// </summary>
     private readonly IWissensspeicherImpl _wissensspeicher;
 
     #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
 
+    /// <summary>
+    /// Liefert ein <see cref="LernAlgorithmusDT{TBsp, TResult}"/>-Objekt.
+    /// </summary>
+    /// <param name="attributAuswaehler">Objekt zum Auswählen des nächsten Attributs.</param>
+    /// <param name="wissensspeicher">Objekt zum Speichern des Baumes.</param>
     public LernAlgorithmusDT(IAttributAuswaehler<TBsp, TResult> attributAuswaehler, IWissensspeicherImpl wissensspeicher)
     {
       this._attributAuswaehler = attributAuswaehler;
       this._wissensspeicher = wissensspeicher;
     }
 
-    #endregion .............................................................................................................
-    #region Getter/Setter ..................................................................................................
     #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
 
@@ -78,6 +96,7 @@ namespace EntscheidungsbaumLernen.Controller
 
     }
 
+    /// <inheritdoc/>
     public IWissensspeicher Lerne(in List<TBsp> beispielliste, in List<Type> attributsliste, in TResult defaultWert)
     {
       object response = this.LernrePrivat(beispielliste, attributsliste, defaultWert);
@@ -93,6 +112,7 @@ namespace EntscheidungsbaumLernen.Controller
     #endregion .............................................................................................................
     #region Private Methoden ...............................................................................................
 
+    /// <inheritdoc cref="Lerne(in List{TBsp}, in List{Type}, in TResult)"/>
     private object LernrePrivat(in List<TBsp> beispielliste, in List<Type> attributsliste, in TResult defaultWert)
     {
       if (beispielliste?.Count == 0)
@@ -140,10 +160,23 @@ namespace EntscheidungsbaumLernen.Controller
       return entscheidungsbaumElement;
     }
 
+    /// <summary>
+    /// Prüft ob Alle Elemente der Liste bei der Eigenschaft <typeparamref name="TResult"/> den gleichen Wert haben. Wenn ja, wird <i>true</i> zurückgegeben und bei <paramref name="result"/> eben dieser Wert hinterlegt.
+    /// </summary>
+    /// <param name="beispielliste">Liste an zu durchsuchenden Beispielen.</param>
+    /// <param name="result">Ergebnis, falls alle Listenelemente den gleichen Ergebnis-Werte haben.</param>
+    /// <returns><i>True</i> wenn alle Elemente den gleichen Ergebnis-Wert haben, ansonsten <i>false</i>.</returns>
+    /// <exception cref="ArgumentNullException">Wenn <paramref name="beispielliste"/> null oder leer ist.</exception>
     private bool PruefeObAlleElementeGleichesResultHaben(in List<TBsp> beispielliste, out object result)
     {
       // Default-Wert zuweisen:
       result = null;
+
+      // Eingabe testen:
+      if (beispielliste == null || beispielliste.Count == 0)
+      {
+        throw new ArgumentNullException(nameof(beispielliste), "Beispielliste ist 'null' oder leer.");
+      }
 
       // Liste der Enum-Werte:
       Array elemente = Enum.GetValues(typeof(TResult));
@@ -183,8 +216,16 @@ namespace EntscheidungsbaumLernen.Controller
       return false;
     }
 
+    /// <summary>
+    /// Teilt die übergebene Liste <paramref name="zuTeilen"/> Anhand des Enums <paramref name="attribut"/> in so viele Listen auf, wie das Enum Elemente hat.
+    /// </summary>
+    /// <param name="attribut">Typ des Enums, nach dem aufgeteilt werden soll.</param>
+    /// <param name="zuTeilen">Liste an aufzuteilenden Beispielen.</param>
+    /// <returns>Ein Dictionary, bei dem die Schlüssel die Werte des Enums <paramref name="attribut"/> sind. Die Values sind jeweils Listen an Elementen aus <paramref name="zuTeilen"/> die diesen Werten zuzuweisen sind.</returns>
+    /// <exception cref="ArgumentException">Wenn der übergebe <paramref name="attribut"/> kein <see cref="Enum"/> ist.</exception>
     private Dictionary<string, List<TBsp>> TeileInListen(Type attribut, List<TBsp> zuTeilen)
     {
+      Checks.EnumCheck(attribut);
       Dictionary<string, List<TBsp>> listen = new Dictionary<string, List<TBsp>>();
 
       Array attributArray = Enum.GetValues(attribut);
@@ -194,10 +235,10 @@ namespace EntscheidungsbaumLernen.Controller
       }
 
 
-      foreach (TBsp kinobesuch in zuTeilen)
+      foreach (TBsp beispiel in zuTeilen)
       {
-        object eigenschaft = KlassenHelper.GetValue(kinobesuch, attribut);
-        listen[eigenschaft.ToString()].Add(kinobesuch);
+        object eigenschaft = KlassenHelper.GetValue(beispiel, attribut);
+        listen[eigenschaft.ToString()].Add(beispiel);
       }
 
       return listen;

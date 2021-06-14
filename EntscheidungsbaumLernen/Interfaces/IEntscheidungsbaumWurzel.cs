@@ -14,7 +14,7 @@ namespace EntscheidungsbaumLernen.Interfaces
     /// <summary>
     /// Typ des aktuellen Knotens.
     /// </summary>
-    public Type Wureltyp { get; }
+    public Type KnotenTyp { get; }
 
     /// <summary>
     /// Liefert das zur <paramref name="kategorie"/> passende Kind.

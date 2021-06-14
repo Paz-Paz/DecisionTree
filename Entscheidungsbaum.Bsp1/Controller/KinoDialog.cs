@@ -25,7 +25,7 @@ namespace Entscheidungsbaum.Bsp1.Controller
       {
         Console.WriteLine("\nBitte Fragen beantworten um das Wissen abzufragen:");
       }
-      string kategorie = this.GetKategorie(baumwuzel.Wureltyp);
+      string kategorie = this.GetKategorie(baumwuzel.KnotenTyp);
       object kind = baumwuzel.GetKind(kategorie);
 
       if (baumwuzel.IstBlatt(kategorie))

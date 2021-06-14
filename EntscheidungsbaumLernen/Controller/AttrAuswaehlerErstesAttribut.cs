@@ -7,18 +7,27 @@ namespace EntscheidungsbaumLernen.Controller
 {
   #region CLASS AttrAuswaehlerDummy<T> ...................................................................................
 
+  /// <summary>
+  /// Attributauswähler, welcher einfach immer das erste verfügbare Attribut zurückgibt.
+  /// </summary>
+  /// <remarks>
+  /// Überbleibsel aus der Entwicklung des Systems, aber für eventuelle Sonderfälle aufgehoben.<br />
+  /// Schnelle Laufzeit ;) <br />
+  /// <br /><b>Versionen:</b><br />
+  /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+  /// </remarks>
+  /// <typeparam name="TBsp">Typ der Klasse der Beispieldaten.</typeparam>
+  /// <typeparam name="TResult">Typ der Eigenschaft des Ergebnisses</typeparam>
   internal class AttrAuswaehlerErstesAttribut<TBsp, TResult> : IAttributAuswaehler<TBsp, TResult> where TBsp : class where TResult : Enum
   {
-    #region Eigenschaften ..................................................................................................
-
-    private Type _letztes = null;
-
-    #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
-    public AttrAuswaehlerErstesAttribut()
-    {
-      Console.WriteLine("\nVerwendeter Attributsauswahlalgorithmus: Dummy-Auswahl");
 
+    /// <summary>
+    /// Liefert ein <see cref="AttrAuswaehlerErstesAttribut{TBsp, TResult}"/>-Obekt.
+    /// </summary>
+    internal AttrAuswaehlerErstesAttribut()
+    {
+      Console.WriteLine("\nVerwendeter Attributsauswahlalgorithmus: Erstes Attribut-Auswahl");
     }
 
     #endregion .............................................................................................................
@@ -28,17 +37,6 @@ namespace EntscheidungsbaumLernen.Controller
     public Type ChoosAttribute(in List<TBsp> beispielliste, in List<Type> attributsliste)
     {
       return attributsliste.First();
-      //if (this._letztes == null)
-      //{
-      //  this._letztes = typeof(Gruppe);
-      //  return typeof(Gruppe);
-      //}
-      //if (this._letztes == typeof(Gruppe))
-      //{
-      //  this._letztes = typeof(Kategorie);
-      //  return typeof(Kategorie);
-      //}
-      //return typeof(Wetter);
     }
 
     #endregion .............................................................................................................

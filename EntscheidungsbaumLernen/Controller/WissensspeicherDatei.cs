@@ -7,22 +7,45 @@ using System.Text.Json;
 
 namespace EntscheidungsbaumLernen.Controller
 {
+  /// <summary>
+  /// Nutzt als Speicherort für den Baum eine Datei auf der Festplatte.
+  /// </summary>
+  /// <typeparam name="TResult">Typ des Ergebnisses</typeparam>
+  /// <remarks>
+  /// <br /><b>Versionen:</b><br />
+  /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+  /// </remarks>
   internal class WissensspeicherDatei<TResult> : IWissensspeicherImpl where TResult : Enum
   {
     #region Eigenschaften ..................................................................................................
 
-
+    /// <summary>
+    /// Nächser Speicher in der Kette.
+    /// </summary>
     private IWissensspeicherImpl _next = null;
 
-    private enum DUMMY { }
-
+    /// <summary>
+    /// Dateiname unter dem gespeichert / geladen werden soll.
+    /// </summary>
     private readonly string _datei;
+
+    /// <summary>
+    /// Flag ob die Json-Datei leserlich (true) oder minimiert (false) gespeichert werden soll.
+    /// </summary>
+    private readonly bool _speichereLeserlich;
+
     #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
 
-    public WissensspeicherDatei(string datei)
+    /// <summary>
+    /// Liefert ein <see cref="WissensspeicherDatei{TResult}"/>-Objekt.
+    /// </summary>
+    /// <param name="datei">Dateiname der verwendet werden soll.</param>
+    /// <param name="speichereLeserlich">Wenn true wird die gespeicherte JSON-Datei 'schön' gespeichert, bei false wird sie minimiert gespeichert.</param>
+    public WissensspeicherDatei(string datei, bool speichereLeserlich)
     {
       this._datei = datei;
+      this._speichereLeserlich = speichereLeserlich;
     }
 
     #endregion .............................................................................................................
@@ -63,6 +86,7 @@ namespace EntscheidungsbaumLernen.Controller
 
       SpeicherKnoten baum = JsonSerializer.Deserialize<SpeicherKnoten>(json);
       IEntscheidungsbaumWurzel wurzel = this.ErzeugeIEntscheidungsbaumWurzel(baum);
+      Console.WriteLine($"Lade Baum aus Datei '{this._datei}'");
       return wurzel;
 
     }
@@ -81,7 +105,7 @@ namespace EntscheidungsbaumLernen.Controller
     public void SpeichereBaum(IEntscheidungsbaumWurzel wurzel)
     {
       SpeicherKnoten speicherStruktur = this.ErzeugeSpeicherbaum(wurzel);
-      string json = JsonSerializer.Serialize(speicherStruktur, new JsonSerializerOptions() { WriteIndented = true, MaxDepth = 100, IgnoreNullValues = true });
+      string json = JsonSerializer.Serialize(speicherStruktur, new JsonSerializerOptions() { WriteIndented = this._speichereLeserlich, MaxDepth = 100, IgnoreNullValues = true });
 
       try
       {
@@ -98,22 +122,27 @@ namespace EntscheidungsbaumLernen.Controller
 
       Console.WriteLine($"Speichere Baum in Datei '{this._datei}'...");
       this._next?.SpeichereBaum(wurzel);
-      //throw new NotImplementedException();
     }
 
     #endregion .............................................................................................................
     #region Private Methoden ...............................................................................................
 
+    /// <summary>
+    /// Erzeugt aus einem <paramref name="knoten"/> und dessen Kinder ein <see cref="EntscheidungsbaumElement{TResult}"/> und dessen Kinder.
+    /// </summary>
+    /// <remarks>
+    /// Wird benötigt, da sich die <see cref="EntscheidungsbaumElement{TResult}"/>-Klassen nicht einfach so sreialisieren lassen.
+    /// </remarks>
+    /// <param name="knoten">Wurzel des aktuell umzuwandelnden (Teil-) Baumes.</param>
+    /// <returns>Erzeugtes Objekt.</returns>
     private EntscheidungsbaumElement<TResult> ErzeugeIEntscheidungsbaumWurzel(in SpeicherKnoten knoten)
     {
       Type wurzeltype = Type.GetType(knoten.Wureltyp);
       EntscheidungsbaumElement<TResult> wurzel = new EntscheidungsbaumElement<TResult>(wurzeltype);
-
       Array ergebnisse = Enum.GetValues(typeof(TResult));
 
       foreach (string kategorie in knoten.Kinder.Keys)
       {
-        //object kind = Enum.Parse(wurzeltype, kategorie);
         object kind = knoten.Kinder[kategorie];
 
         bool gefunden = false;
@@ -139,13 +168,21 @@ namespace EntscheidungsbaumLernen.Controller
       return wurzel;
     }
 
+    /// <summary>
+    /// Wandelt ein <paramref name="wurzel"/> in ein Objekt vom Typ <see cref="SpeicherKnoten"/> um, um es dann auf die Platte zu speichern.
+    /// </summary>
+    /// <remarks>
+    /// Wird benötigt, da sich die <see cref="EntscheidungsbaumElement{TResult}"/>-Klassen nicht einfach so sreialisieren lassen.
+    /// </remarks>
+    /// <param name="wurzel">Wurzel des aktuell umzuwandelnden (Teil-) Baumes.</param>
+    /// <returns>Erzeugtes Objekt.</returns>
     private SpeicherKnoten ErzeugeSpeicherbaum(IEntscheidungsbaumWurzel wurzel)
     {
       SpeicherKnoten knoten = new SpeicherKnoten();
-      knoten.Wureltyp = wurzel.Wureltyp.AssemblyQualifiedName;
+      knoten.Wureltyp = wurzel.KnotenTyp.AssemblyQualifiedName;
 
 
-      Array kategorien = Enum.GetValues(wurzel.Wureltyp);
+      Array kategorien = Enum.GetValues(wurzel.KnotenTyp);
       foreach (object kategorie in kategorien)
       {
         string katString = kategorie.ToString();
@@ -165,10 +202,24 @@ namespace EntscheidungsbaumLernen.Controller
 
     #endregion .............................................................................................................
     #region CLASS SpeicherBaum .............................................................................................
-    public class SpeicherKnoten
+
+    /// <summary>
+    /// Klasse zum Abspeichern eines Knotens.
+    /// </summary>
+    /// <remarks>
+    /// <br /><b>Versionen:</b><br />
+    /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+    /// </remarks>
+    private class SpeicherKnoten
     {
+      /// <summary>
+      /// Liste der Kinder.
+      /// </summary>
       public Dictionary<string, object> Kinder { get; set; } = new Dictionary<string, object>();
 
+      /// <summary>
+      /// Voll-Qualifizierter Wurzeltyp. (<see cref="Type.AssemblyQualifiedName"/>)
+      /// </summary>
       public string Wureltyp { get; set; }
 
     }

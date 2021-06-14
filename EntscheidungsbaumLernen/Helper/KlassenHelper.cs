@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntscheidungsbaumLernen.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -6,19 +7,19 @@ namespace EntscheidungsbaumLernen.Helper
 {
   #region STATIC CLASS KlassenHelper .....................................................................................
 
+  /// <summary>
+  /// Helfer für alles das mit dem Handling von Klassen zu tun hat.
+  /// </summary>
+  /// <remarks>
+  /// <br /><b>Versionen:</b><br />
+  /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+  /// </remarks>
   internal static class KlassenHelper
   {
 
     #region Paket-Interne Methoden .........................................................................................
 
-    /// <summary>
-    /// Erstellt eine Liste aller lesbaren Enum-Attribute des übergebenen Typs.
-    /// </summary>
-    /// <remarks>
-    /// Attribut vom Typ <see cref="Ergebniss"/> wird ignoriert.
-    /// </remarks>
-    /// <typeparam name="TBsp">Typ dessen Attribute ausgelesen werden sollen.</typeparam>
-    /// <returns>Liste der Attribute des Typs. (Kann auch eine leere Liste sein)</returns>
+    /// <inheritdoc cref="IHelper.ErstellAttributliste{TBsp, TResult}"/>
     internal static List<Type> ErstellAttributliste<TBsp, TResult>() where TBsp : class where TResult : Enum
     {
       List<Type> response = new List<Type>();
@@ -51,6 +52,7 @@ namespace EntscheidungsbaumLernen.Helper
     /// <param name="auszulesen">Auszulesendes Objekt.</param>
     /// <param name="enumType">Typ der Eigenschaft die Ausgelesn werden soll.</param>
     /// <returns>Ausgelesener Wert, oder 'null' wenn nicht auslesbar oder auffindbar.</returns>
+    /// <exception cref="ArgumentException">Wenn der übergebe <paramref name="enumType"/> kein <see cref="Enum"/> ist.</exception>
     internal static object GetValue<T>(T auszulesen, Type enumType) where T : class
     {
       Checks.EnumCheck(enumType);
