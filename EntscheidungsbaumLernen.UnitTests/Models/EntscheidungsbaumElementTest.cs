@@ -39,7 +39,7 @@ namespace Models
       ArgumentException exception = Assert.ThrowsException<ArgumentException>(() => new EntscheidungsbaumElement<ResultEnum>(typeof(string)));
 
       // auswerten:
-      Assert.AreEqual<string>("wurzeltyp (Parameter 'Übergebener Type muss ein Enum sein.')", exception.Message);
+      Assert.AreEqual<string>("knotenTyp (Parameter 'Übergebener Type muss ein Enum sein.')", exception.Message);
     }
 
     [TestMethod]
@@ -49,7 +49,7 @@ namespace Models
       ArgumentNullException exception = Assert.ThrowsException<ArgumentNullException>(() => new EntscheidungsbaumElement<ResultEnum>(null));
 
       // auswerten:
-      Assert.AreEqual<string>("Übergebener Type darf nicht null sein. (Parameter 'wurzeltyp')", exception.Message);
+      Assert.AreEqual<string>("Übergebener Type darf nicht null sein. (Parameter 'knotenTyp')", exception.Message);
     }
 
     [TestMethod]

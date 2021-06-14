@@ -263,6 +263,20 @@
             <summary>
             Speichert das Wissen nur im RAM, so dass es bei jedem Programmneustart neu generiert werden muss.
             </summary>
+            <remarks>
+            <br /><b>Versionen:</b><br />
+            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            </remarks>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Controller.WissensspeicherRam._baumwurzel">
+            <summary>
+            Objekt, in dem die Wurzel des Entscheidungsbaumes gespeichert wird.
+            </summary>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Controller.WissensspeicherRam._next">
+            <summary>
+            Nächser Speicher in der Kette.
+            </summary>
         </member>
         <member name="P:EntscheidungsbaumLernen.Controller.WissensspeicherRam.Next">
             <inheritdoc/>
