@@ -32,6 +32,9 @@ namespace KinoBeispiel
       program.WerteAus<KinobesuchEingabe, Ergebniss>(eingabe);
 
 
+      
+      
+      
 
 
       Console.WriteLine();
