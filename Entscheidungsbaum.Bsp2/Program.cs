@@ -25,6 +25,7 @@ namespace Entscheidungsbaum.Bsp2
       dialogLernen.LerneBeispiele();
       dialogLernen.AusgabeBaumstruktur();
 
+      // TEST-Text
 
       // Eingeben auszuwertender Daten:
       AuftragEingabe auftragEingabe = new AuftragEingabe(-1, Bereich.OnlineShop, Aufwand.Gross, Attraktivitaet.Hoch, Bauchgefuehl.Gut);
