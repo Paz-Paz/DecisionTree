@@ -15,14 +15,14 @@ namespace EntscheidungsbaumLernen.Controller
   /// <br /><b>Versionen:</b><br />
   /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
   /// </remarks>
-  internal class WissensspeicherDatei<TResult> : IWissensspeicherImpl where TResult : Enum
+  internal class WissensspeicherDatei<TResult> : IWissensspeicher where TResult : Enum
   {
     #region Eigenschaften ..................................................................................................
 
     /// <summary>
     /// Nächser Speicher in der Kette.
     /// </summary>
-    private IWissensspeicherImpl _next = null;
+    private IWissensspeicher _next = null;
 
     /// <summary>
     /// Dateiname unter dem gespeichert / geladen werden soll.
@@ -52,7 +52,7 @@ namespace EntscheidungsbaumLernen.Controller
     #region Getter/Setter ..................................................................................................
 
     /// <inheritdoc/>
-    public IWissensspeicherImpl Next => this._next;
+    public IWissensspeicher Next => this._next;
 
     #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
@@ -92,7 +92,7 @@ namespace EntscheidungsbaumLernen.Controller
     }
 
     /// <inheritdoc/>
-    public void SetNaechsteInstanz(IWissensspeicherImpl wissensspeicher)
+    public void SetNaechsteInstanz(IWissensspeicher wissensspeicher)
     {
       if (this._next != null)
       {

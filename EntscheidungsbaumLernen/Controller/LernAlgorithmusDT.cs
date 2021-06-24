@@ -17,6 +17,7 @@ namespace EntscheidungsbaumLernen.Controller
   /// <typeparam name="TResult">Typ der Eigenschaft des Ergebnisses der Beispiel-Objekte.</typeparam>
   /// <remarks>
   /// <br /><b>Versionen:</b><br />
+  /// V1.1 14.06.2021 - Paz-Paz - Alles bez. 'Wissensspeicher' entfernt.<br />
   /// V1.0 06.06.2021 - Paz-Paz - erstellt<br />
   /// </remarks>
   internal class LernAlgorithmusDT<TBsp, TResult> : ILernAlgoritmus<TBsp, TResult> where TBsp : class where TResult : Enum
@@ -28,11 +29,6 @@ namespace EntscheidungsbaumLernen.Controller
     /// </summary>
     private readonly IAttributAuswaehler<TBsp, TResult> _attributAuswaehler;
 
-    /// <summary>
-    /// Objekt zum Speichern des Baumes.
-    /// </summary>
-    private readonly IWissensspeicherImpl _wissensspeicher;
-
     #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
 
@@ -40,25 +36,23 @@ namespace EntscheidungsbaumLernen.Controller
     /// Liefert ein <see cref="LernAlgorithmusDT{TBsp, TResult}"/>-Objekt.
     /// </summary>
     /// <param name="attributAuswaehler">Objekt zum Auswählen des nächsten Attributs.</param>
-    /// <param name="wissensspeicher">Objekt zum Speichern des Baumes.</param>
-    public LernAlgorithmusDT(IAttributAuswaehler<TBsp, TResult> attributAuswaehler, IWissensspeicherImpl wissensspeicher)
+    public LernAlgorithmusDT(IAttributAuswaehler<TBsp, TResult> attributAuswaehler)
     {
       this._attributAuswaehler = attributAuswaehler;
-      this._wissensspeicher = wissensspeicher;
     }
 
     #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
 
     /// <inheritdoc/>
-    public IWissensspeicher Lerne(in List<TBsp> beispielliste)
+    public IEntscheidungsbaumWurzel Lerne(in List<TBsp> beispielliste)
     {
       List<Type> attributliste = KlassenHelper.ErstellAttributliste<TBsp, TResult>();
       return this.Lerne(beispielliste, attributliste);
     }
 
     /// <inheritdoc/>
-    public IWissensspeicher Lerne(in List<TBsp> beispielliste, in List<Type> attributsliste)
+    public IEntscheidungsbaumWurzel Lerne(in List<TBsp> beispielliste, in List<Type> attributsliste)
     {
       PropertyInfo[] propertyInfos = typeof(TBsp).GetProperties();
       if (propertyInfos?.Length < 2)
@@ -83,7 +77,7 @@ namespace EntscheidungsbaumLernen.Controller
       if (defaulWertType == null)
       {
         Console.WriteLine($"WARNING Typ '{typeof(TBsp)}' hat keine Enums, da her keine automatische Ergebniss-Attribut-Auswahl möglich. Leerer Wissensspeicher wird zurückgegeben.");
-        return this._wissensspeicher;
+        return null;
       }
       Array werte = Enum.GetValues(defaulWertType);
       if (werte?.Length == 0)
@@ -97,16 +91,22 @@ namespace EntscheidungsbaumLernen.Controller
     }
 
     /// <inheritdoc/>
-    public IWissensspeicher Lerne(in List<TBsp> beispielliste, in List<Type> attributsliste, in TResult defaultWert)
+    public IEntscheidungsbaumWurzel Lerne(in List<TBsp> beispielliste, in TResult defaultWert)
+    {
+      List<Type> attributliste = KlassenHelper.ErstellAttributliste<TBsp, TResult>();
+      return this.Lerne(beispielliste, attributliste, defaultWert);
+    }
+
+    /// <inheritdoc/>
+    public IEntscheidungsbaumWurzel Lerne(in List<TBsp> beispielliste, in List<Type> attributsliste, in TResult defaultWert)
     {
       object response = this.LernrePrivat(beispielliste, attributsliste, defaultWert);
       if (response.GetType() != typeof(EntscheidungsbaumElement<TResult>))
       {
         throw new Exception("Es ergibt sich kein Baum, nur 'Ja', oder 'Nein'");
       }
-      this._wissensspeicher.SpeichereBaum((EntscheidungsbaumElement<TResult>)response);
 
-      return this._wissensspeicher;
+      return (EntscheidungsbaumElement<TResult>)response;
     }
 
     #endregion .............................................................................................................

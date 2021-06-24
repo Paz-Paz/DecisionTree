@@ -1,5 +1,4 @@
-﻿using EntscheidungsbaumLernen.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -19,7 +18,12 @@ namespace EntscheidungsbaumLernen.Helper
 
     #region Paket-Interne Methoden .........................................................................................
 
-    /// <inheritdoc cref="IHelper.ErstellAttributliste{TBsp, TResult}"/>
+    /// <summary>
+    /// Liefert eine Liste aller <see cref="Enum"/>-Attribute der Klasse <typeparamref name="TBsp"/>. Dabei wird die Eigenschaft <typeparamref name="TResult"/> ignoriert.
+    /// </summary>
+    /// <typeparam name="TBsp">Type, dessen Attribute aufgelistet werden sollen.</typeparam>
+    /// <typeparam name="TResult">Type der Eigenschaft, welche beim Auflisten ignoriert werden soll, da sie dem Ergebnis entspricht.</typeparam>
+    /// <returns>Liste an Typen, die die Klasse <typeparamref name="TBsp"/> als Eigenschaften besitzt, kann auch eine leere Liste sein.</returns>
     internal static List<Type> ErstellAttributliste<TBsp, TResult>() where TBsp : class where TResult : Enum
     {
       List<Type> response = new List<Type>();

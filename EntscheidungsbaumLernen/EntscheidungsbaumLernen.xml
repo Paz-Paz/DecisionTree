@@ -78,44 +78,123 @@
             <param name="zuRunden">Zu rundende Zahl.</param>
             <returns>Gerundete Zahl.</returns>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Controller.DialogKomponente">
+        <member name="T:EntscheidungsbaumLernen.Controller.DialogAnwenden`2">
             <summary>
-            Komponente für den Dialog mit dem User.
+            Komponente für den Dialog mit dem Benutzer des Systems.
             </summary>
             <remarks>
             Aktuell kann man nur ein "kompletes" Ergebnis-Objek übergeben werden.<br />
             <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            V1.0 14.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
+            <inheritdoc cref="T:EntscheidungsbaumLernen.Interfaces.IDialogAnwenden`2"/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.DialogKomponente.Abfragen``2(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,``0@)">
+        <member name="F:EntscheidungsbaumLernen.Controller.DialogAnwenden`2._wissensspeicher">
+            <summary>
+            Wissensspeicher zum Auslesen des Baums.
+            </summary>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogAnwenden`2.#ctor(EntscheidungsbaumLernen.Interfaces.IWissensspeicher)">
+            <summary>
+            Liefert ein <see cref="T:EntscheidungsbaumLernen.Controller.DialogAnwenden`2"/>-Objekt.
+            </summary>
+            <param name="wissensspeicher">Objekt zum Laden des Entscheidungsbaumes.</param>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogAnwenden`2.Abfragen">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.DialogKomponente.Auswerten``2(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,``0@,System.Int32@)">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IDialogKomponente.Abfragen``2(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,``0@)"/>
-            <param name="entscheidungsbaumWurzel"><inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IDialogKomponente.Abfragen``2(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,``0@)"/></param>
-            <param name="eingabe"><inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IDialogKomponente.Abfragen``2(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,``0@)"/></param>
-            <param name="zaehler">Nächste Nummer des auszugebenden Entscheidungsgrundes.</param>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogAnwenden`2.EingabeAuswerten(`0@)">
+            <inheritdoc/>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Controller.HelperKlasse">
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogAnwenden`2.Auswerten(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,`0@,System.Int32@)">
             <summary>
-            Klasse um alle Hilffunktionen zentral nach außen geben zu können.
+            Wertet die übergebene <paramref name="eingabe"/> Anhand des übergebenen <paramref name="entscheidungsbaumWurzel"/> aus.
+            </summary>
+            <remarks>
+            Funktion ist nicht viel mehr als eine rekursive Tiefensuche auf einen Baum.
+            </remarks>
+            <param name="entscheidungsbaumWurzel">Aktueller (Teil-) Baum zum Auswerten des Ausdrucks.</param>
+            <param name="eingabe">Eingabe-Objekt, welches ausgewerte werden soll.</param>
+            <param name="zaehler">Zähler, um Zahlen vor die Ausgewählten Attribute zu schreiben.</param>
+            <returns>Ergebnis der Auswertung.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogAnwenden`2.Abfragen(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,System.Boolean)">
+            <summary>
+            Stellt dem Benutzer Fragen anhand derer dann das Ergebnis generiert wird.
+            </summary>
+            <param name="baumwuzel">Wurzel des aktuellen (Teil-) Baumes um die nächste Frage auszuwählen.</param>
+            <param name="mitTitel">Flag um zu Steuern ob eine Titel-Zeile ausgegeben werden soll oder nicht.</param>
+            <returns>Ergebnis der Auswertung.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogAnwenden`2.GetKategorie(System.Type)">
+            <summary>
+            Fragt den Anwender nach dem Attribut und gibt die Kategorie, bzw. den Enum-Werte als String zurück.
+            </summary>
+            <param name="wurzelType">Aktueller (Teil-) Baum um den Dialog zu generieren und die Antwort auszuwerten.</param>
+            <returns>Name der vom Benutzer ausgewählten Kategorie.</returns>
+        </member>
+        <member name="T:EntscheidungsbaumLernen.Controller.DialogLernen`2">
+            <summary>
+            Klasse für die Kommunikation mit den Personen die das System anlernen sollen.
             </summary>
             <remarks>
             <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            V1.0 14.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
+            <inheritdoc cref="T:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2"/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.HelperKlasse.ErstellAttributliste``2">
+        <member name="F:EntscheidungsbaumLernen.Controller.DialogLernen`2._beispielListe">
+            <summary>
+            Liste der Beispielen, an Hand derer der Baum erstellt werden soll.
+            </summary>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Controller.DialogLernen`2._lernAlgoritmus">
+            <summary>
+            Zu verwendender Algorithums zur Attributsauswahl.
+            </summary>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Controller.DialogLernen`2._wissensspeicher">
+            <summary>
+            Objekt zum Speichern des Baumes.
+            </summary>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Controller.DialogLernen`2._gelernt">
+            <summary>
+            Flag ob schon was gelent wurde.
+            </summary>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.#ctor(EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus{`0,`1},EntscheidungsbaumLernen.Interfaces.IWissensspeicher)">
+            <summary>
+            Liefert ein <see cref="T:EntscheidungsbaumLernen.Controller.DialogLernen`2"/>-Objekt.
+            </summary>
+            <param name="lernAlgoritmus">Zu verwendender Algorithums zur Attributsauswahl.</param>
+            <param name="wissensspeicher">Objekt zum Speichern des Baumes.</param>
+        </member>
+        <member name="P:EntscheidungsbaumLernen.Controller.DialogLernen`2.DefaultWert">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.HelperKlasse.GibAttributlisteAufKonsoleAus(System.Collections.Generic.List{System.Type}@)">
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.AusgabeBaumstruktur">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.HelperKlasse.GibBaumAus(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@)">
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.BeispielHinzufuegen(System.Collections.Generic.IEnumerable{`0}@)">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.HelperKlasse.GibBeispiellisteAufKonsoleAus``2(System.Collections.Generic.List{``0}@)">
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.BeispielHinzufuegen(`0@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.ErstelleListeAllerAttribute">
+            <inheritdoc/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.LerneBeispiele">
+            <inheritdoc/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.LerneBeispiele(System.Collections.Generic.List{System.Type}@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.LerneBeispiele(`1@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.DialogLernen`2.LerneBeispiele(System.Collections.Generic.List{System.Type}@,`1@)">
             <inheritdoc/>
         </member>
         <member name="T:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2">
@@ -126,6 +205,7 @@
             <typeparam name="TResult">Typ der Eigenschaft des Ergebnisses der Beispiel-Objekte.</typeparam>
             <remarks>
             <br /><b>Versionen:</b><br />
+            V1.1 14.06.2021 - Paz-Paz - Alles bez. 'Wissensspeicher' entfernt.<br />
             V1.0 06.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
         </member>
@@ -134,22 +214,19 @@
             Objekt zum Auswählen des nächsten Attributs.
             </summary>
         </member>
-        <member name="F:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2._wissensspeicher">
-            <summary>
-            Objekt zum Speichern des Baumes.
-            </summary>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.#ctor(EntscheidungsbaumLernen.Interfaces.IAttributAuswaehler{`0,`1},EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+        <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.#ctor(EntscheidungsbaumLernen.Interfaces.IAttributAuswaehler{`0,`1})">
             <summary>
             Liefert ein <see cref="T:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2"/>-Objekt.
             </summary>
             <param name="attributAuswaehler">Objekt zum Auswählen des nächsten Attributs.</param>
-            <param name="wissensspeicher">Objekt zum Speichern des Baumes.</param>
         </member>
         <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.Lerne(System.Collections.Generic.List{`0}@)">
             <inheritdoc/>
         </member>
         <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.Lerne(System.Collections.Generic.List{`0}@,`1@)">
             <inheritdoc/>
         </member>
         <member name="M:EntscheidungsbaumLernen.Controller.LernAlgorithmusDT`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@,`1@)">
@@ -214,7 +291,7 @@
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.LadeBaum">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicher)">
             <inheritdoc/>
         </member>
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherDatei`1.SpeichereBaum(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel)">
@@ -284,93 +361,137 @@
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherRam.LadeBaum">
             <inheritdoc/>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherRam.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+        <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherRam.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicher)">
             <inheritdoc/>
         </member>
         <member name="M:EntscheidungsbaumLernen.Controller.WissensspeicherRam.SpeichereBaum(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel)">
             <inheritdoc/>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Factorys.DialogKomponenteFactory">
+        <member name="T:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2">
             <summary>
-            Factory zum Erzeugen der Klasse der Dialogkomponente(n)
+            Klasse um ein Dialog-Objekt für einen "Anwender" des Wissensbaumes zu erstellen.
             </summary>
             <remarks>
             <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            V1.0 14.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
+            <typeparam name="TEingabe">Typ der vom Anwender genutzten Klasse für die Eingabe von Daten.</typeparam>
+            <typeparam name="TResult">Typ der Eigenschaft, die als Ergebnis verwendet wird.</typeparam>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.DialogKomponenteFactory.Build">
+        <member name="F:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2._wissensspeicherFactory">
             <summary>
-            Erzeugt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.IDialogKomponente"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
+            Factory für das Erstellen eines Wissensspeichers.
             </summary>
-            <returns>Erzeugtes Objekt</returns>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Factorys.HelperFactory">
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2.Build">
             <summary>
-            Factory zum Erzeugen der Klasse des Helpers
+            Erstellt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.IDialogAnwenden`2"/>-Objekt mit den zuvor gemachten Einstellungen.
+            </summary>
+            <returns>Erstelltes Objekt.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2.AddSpeicherDatei(System.String@)">
+            <summary>
+            Fügt eine Datei zum Auslesen des Entscheidungsbaumes hinzu.
+            </summary>
+            <param name="dateiname">(Vollständiger) Dateiname im System.</param>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2.AddSpeicherRam">
+            <summary>
+            Fügt den "RAM" als auszulesenden Speicher hinzu.
+            </summary>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2.ClearSpeicher">
+            <summary>
+            Löscht alle aktuell hinterlegten Speicher-Methoden.
+            </summary>
+            <remarks>
+            Falls nach dem Löschen, kein anderer Speicher mehr hinzugefüt wird, wird intern der <see cref="M:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2.AddSpeicherRam"/> aufgerufen, um überhaupt etwas zu haben.
+            </remarks>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogAnwendenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="T:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2">
+            <summary>
+            Klasse um ein Dialog-Objekt für einen "Anlerner" des Wissensbaumes zu erstellen.
             </summary>
             <remarks>
             <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            V1.0 14.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
+            <typeparam name="TBsp">Typ der Klasse, welche als Beispiel verwendet wird.</typeparam>
+            <typeparam name="TResult">Typ der Eigenschaft, die als Ergebnis verwendet wird.</typeparam>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.HelperFactory.Build">
+        <member name="F:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2._wissensspeicherFactory">
             <summary>
-            Erzeugt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.IHelper"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
+            Factory für das Erstellen eines Wissensspeichers.
             </summary>
-            <returns>Erzeugtes Objekt</returns>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2">
+        <member name="F:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2._attributAuswaehler">
             <summary>
-            Factory zum Erzeugen der Klasse des Lern-Algorithmus.
+            Interface um das Objekt zu speichern, welches das nächste Attribut auswählt.
+            </summary>
+        </member>
+        <member name="F:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2._defaultWert">
+            <summary>
+            Defaultwert, wenn keine eindeutige Zuordnung möglich ist.
+            </summary>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.Build">
+            <summary>
+            Erstellt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2"/>-Objekt mit den zuvor gemachten Einstellungen.
+            </summary>
+            <returns>Erstelltes Objekt.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.AddSpeicherDatei(System.String@)">
+            <summary>
+            Fügt eine Datei zum Speichern des Entscheidungsbaumes hinzu.
+            </summary>
+            <param name="dateiname">(Vollständiger) Dateiname im System.</param>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.AddSpeicherRam">
+            <summary>
+            Fügt den "RAM" als zu speichernden Speicher hinzu.
+            </summary>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.ClearSpeicher">
+            <summary>
+            Löscht alle aktuell hinterlegten Speicher-Methoden.
             </summary>
             <remarks>
-            <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            Falls nach dem Löschen, kein anderer Speicher mehr hinzugefüt wird, wird intern der <see cref="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.AddSpeicherRam"/> aufgerufen, um überhaupt etwas zu haben.
             </remarks>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
         </member>
-        <member name="F:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2._attributAuswaehler">
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.SetDefaultWert(`1)">
             <summary>
-            Zu verwendender Attributs-Auswähler.
-            </summary>
-        </member>
-        <member name="F:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2._wissensspeicherFactory">
-            <summary>
-            Factory für den Wissensspeicher.
-            </summary>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.Build">
-            <summary>
-            Erzeugt ein <see cref="T:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2"/>-Objekt aus den zuvor gemachten Einstellungen und gibt es zurück.
-            </summary>
-            <returns>Erzeugtes Objekt</returns>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.AttributauswErstesAttribut">
-            <summary>
-            Setzt als Attributauswähler einen, der prinzipiell immer das erste Attribut dass er findet verwendet.
+            Setzt einen Wert, welcher verwendet wird, wenn einem Blatt im Entscheidungsbaum kein Wert zugeordnet werden kann. (Default: '<i>default(TResult)</i>')
             </summary>
             <remarks>
-            Sehr Laufzeit-Freundlich, dafür (sehr) schlechte Auswahl.
+            <i>Beispiel</i>: Ein Element hat 2 Kinder, das gewählte Attribut aber 3 Eigenschaften.
             </remarks>
-            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+            <param name="defaultWert">Wert, welcher übernommen werden soll.</param>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.AttributauswGainAbsolut">
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.UseAttributauswaehlerErstesAttribut">
             <summary>
-            Setzt als Attributauswähler einen, der prinzipiell immer das erste Attribut dass er findet verwendet.
+            Nutzt einen Attribut-Auswähler, welcher immer das erste zur Verfügung stehende Attribut zurückgibt.
             </summary>
             <remarks>
-            Sehr Laufzeit-Freundlich, dafür (sehr) schlechte Auswahl.
+            Arbeitet schnell, liefert aber schlechtn Baum ;)
             </remarks>
-            <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.SpeicherClear">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.Clear"/>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.SpeicherRam">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddRamSpeicher"/>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.LernAlgorithmusFactory`2.SpeicherDatei(System.String@,System.Boolean@)">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddDateiSpeicher``1(System.String@,System.Boolean@)"/>
+        <member name="M:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2.UseAttributauswaehlerGainAbsolut">
+            <summary>
+            Nutzt einen Attribut-Auswähler, welcher ein Attribut nach dem "Gain ration - absolut" Verfahren auswählt.
+            </summary>
+            <remarks>
+            Bei Eigenschaften, die immer nur 1x belegt sind, z.B Kundennummern ist dieser Algorithmus nicht sehr gut.
+            </remarks>
+            <returns><see cref="T:EntscheidungsbaumLernen.Factorys.DialogLernenFactory`2"/>, um weitere Einstellungen vornehmen zu können.</returns>
         </member>
         <member name="T:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory">
             <summary>
@@ -416,23 +537,17 @@
             <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
             <exception cref="T:System.NotImplementedException">Datei-Speicher wurde noch (nicht fertig) implementiert.</exception>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddEigenenSpeicher(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl@)">
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddEigenenSpeicher(EntscheidungsbaumLernen.Interfaces.IWissensspeicher@)">
             <summary>
             Fügt einen beliebigen, auch extern erzeugen, Wissensspeicher hinzu.
             </summary>
             <remarks>
-            Vorbereitet um in Zukunft das externe Erstellen von Wissensspeichern per <see cref="T:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl"/> zu ermöglichen.
+            Vorbereitet um in Zukunft das externe Erstellen von Wissensspeichern per <see cref="T:EntscheidungsbaumLernen.Interfaces.IWissensspeicher"/> zu ermöglichen.
             </remarks>
             <param name="wissensspeicher">Hinzuzufügender Wissensspeicher.</param>
             <returns>Die Factory um weitere Einstellungen vornehmen zu können.</returns>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.BuildImpl">
-            <summary>
-            Erzeugt die interne Wissensspeicher-Implementierung, welche auch speichern kann.
-            </summary>
-            <returns>Erzeuges Objekt.</returns>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddSpeicher(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+        <member name="M:EntscheidungsbaumLernen.Factorys.WissensspeicherFactory.AddSpeicher(EntscheidungsbaumLernen.Interfaces.IWissensspeicher)">
             <summary>
             Fügt den übergebenen Wissensspeicher hinzu.
             </summary>
@@ -448,13 +563,50 @@
             </remarks>
         </member>
         <member name="M:EntscheidungsbaumLernen.Helper.Ausgeber.GibAttributlisteAufKonsoleAus(System.Collections.Generic.List{System.Type}@)">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IHelper.GibAttributlisteAufKonsoleAus(System.Collections.Generic.List{System.Type}@)"/>
+            <summary>
+            Schreibt die Liste der übergebenen Attribute auf die Konsole.
+            </summary>
+            <remarks>
+            <b>Beispiel:</b><br />
+            <example>
+            <code>
+            Attributliste:<br />
+            *) Attraktiv<br />
+            *) Preis<br />
+            *) Loge<br />
+            *) Wetter<br />
+            *) ...
+             </code>
+            </example>
+            </remarks>
+            <param name="liste">Liste der auszugebenen Attribute.</param>
         </member>
         <member name="M:EntscheidungsbaumLernen.Helper.Ausgeber.GibBaumAus(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@)">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IHelper.GibBaumAus(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@)"/>
+            <summary>
+            Gibt den Baum auf der Konsole aus.
+            </summary>
+            <remarks>
+            <b>Beispiel:</b><br />
+            <example>
+            <code>
+            Baumstruktur:<br />
+            Gruppe<br />
+             ├ Freunde: Kategorie<br />
+             │  ├ AC: Ja<br />
+             │  ├ KO: Attraktiv<br />
+            .....
+             </code>
+            </example>
+            </remarks>
+            <param name="wurzel">Wurzelknoten des Entscheidungsbaumes.</param>
         </member>
         <member name="M:EntscheidungsbaumLernen.Helper.Ausgeber.GibBeispiellisteAufKonsoleAus``2(System.Collections.Generic.List{``0}@)">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IHelper.GibBeispiellisteAufKonsoleAus``2(System.Collections.Generic.List{``0}@)"/>
+            <summary>
+            Gibt die übergebene Beispielliste als Tabelle auf der Konsole aus.
+            </summary>
+            <typeparam name="TBsp">Klasse der Beispiel-Elemente.</typeparam>
+            <typeparam name="TResult">Eigenschaft des Ergebnisses, um es ganz rechts darzustellen.</typeparam>
+            <param name="beispielliste">Liste der auszugebenden Beispiele.</param>
         </member>
         <member name="M:EntscheidungsbaumLernen.Helper.Ausgeber.GibBaumAus(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,System.Collections.Generic.List{System.String}@)">
             <inheritdoc cref="M:EntscheidungsbaumLernen.Helper.Ausgeber.GibBaumAus(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@)"/>
@@ -549,7 +701,12 @@
             </remarks>
         </member>
         <member name="M:EntscheidungsbaumLernen.Helper.KlassenHelper.ErstellAttributliste``2">
-            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IHelper.ErstellAttributliste``2"/>
+            <summary>
+            Liefert eine Liste aller <see cref="T:System.Enum"/>-Attribute der Klasse <typeparamref name="TBsp"/>. Dabei wird die Eigenschaft <typeparamref name="TResult"/> ignoriert.
+            </summary>
+            <typeparam name="TBsp">Type, dessen Attribute aufgelistet werden sollen.</typeparam>
+            <typeparam name="TResult">Type der Eigenschaft, welche beim Auflisten ignoriert werden soll, da sie dem Ergebnis entspricht.</typeparam>
+            <returns>Liste an Typen, die die Klasse <typeparamref name="TBsp"/> als Eigenschaften besitzt, kann auch eine leere Liste sein.</returns>
         </member>
         <member name="M:EntscheidungsbaumLernen.Helper.KlassenHelper.GetValue``1(``0,System.Type)">
             <summary>
@@ -580,24 +737,99 @@
             <param name="attributsliste">Liste an Attributen, aus denen ausgwählt werden kann.</param>
             <returns>Den <see cref="T:System.Type"/> des ausgewählten Attributs.</returns>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Interfaces.IDialogKomponente">
+        <member name="T:EntscheidungsbaumLernen.Interfaces.IDialogAnwenden`2">
             <summary>
-            Intefrace für die Klasse, welche die Dialogkomponente zum Benutzer darstellt.
+            Interface um "Anwendern" eine einfache Schnittstelle für die Nutzung des Entscheidungsbaumes anzubieten.
             </summary>
             <remarks>
             <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
+            V1.0 14.06.2021 - Paz-Paz - erstellt<br />
+            </remarks>
+            <typeparam name="TEingabe">Typ der Klasse, die für die EIngabe verwendet wird.</typeparam>
+            <typeparam name="TResult">Typ der Eigenschaft in <typeparamref name="TEingabe"/> welche das Ergebnis darstellt.</typeparam>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogAnwenden`2.Abfragen">
+            <summary>
+            Stellt dem Benutzer Fragen und anhand der Antworten wird dann das Ergebnis generiert.
+            </summary>
+            <returns>Ergebnis der Auswertung.</returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogAnwenden`2.EingabeAuswerten(`0@)">
+            <summary>
+            Wertet die übergebene <paramref name="eingabe"/> aus.
+            </summary>
+            <param name="eingabe">Eingabe-Objekt, welches ausgewerte werden soll.</param>
+            <returns>Ergebnis der Auswertung.</returns>
+        </member>
+        <member name="T:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2">
+            <summary>
+            Interface um "Anwendern" eine einfache Schnittstelle für die Nutzung des Entscheidungsbaumes anzubieten.
+            </summary>
+            <remarks>
+            <br /><b>Versionen:</b><br />
+            V1.0 14.06.2021 - Paz-Paz - erstellt<br />
+            </remarks>
+            <typeparam name="TBsp">Typ der Klasse, die für als Beispiele verwendet wird.</typeparam>
+            <typeparam name="TResult">Typ der Eigenschaft in <typeparamref name="TResult"/> welche das Ergebnis darstellt.</typeparam>
+        </member>
+        <member name="P:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.DefaultWert">
+            <summary>
+            Wert, welcher verwendet wird, wenn einem Blatt im Entscheidungsbaum kein Wert zugeordnet werden kann. (Default: '<i>default(TResult)</i>')
+            </summary>
+            <remarks>
+            <i>Beispiel</i>: Ein Element hat 2 Kinder, das gewählte Attribut aber 3 Eigenschaften.
             </remarks>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogKomponente.Abfragen``2(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@,``0@)">
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.AusgabeBaumstruktur">
             <summary>
-            Methode zum Abfragen eines einzelnen Beispiels.
+            Gibt den aktuell gelernten Baum auf der Konsole aus.
             </summary>
-            <typeparam name="TEingabe">Typ des Eingabe-Objekts.</typeparam>
-            <typeparam name="TResult">Eigenschaft die als Ergebniss erwartet wird.</typeparam>
-            <param name="entscheidungsbaumWurzel">Wurzel der gespeicherten Entscheidungsbaum-Struktur.</param>
-            <param name="eingabe">Objekt, welches ausgewertet werden soll.</param>
+            <remarks>
+            Achtung, falls noch keine Lern-Funktion aufgerufen wurde, wird eine Fehlermeldung ausgegeben.
+            </remarks>
+            <exception cref="T:System.InvalidCastException"></exception>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.AusgabeLerndaten">
+            <summary>
+            Gibt die Liste der zu lernenden Beispiele auf der Konsole aus.
+            </summary>
+            <remarks>
+            Dabei wird die Breite des Konsolenfensters, bei Bedarf, angepasst.
+            </remarks>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.BeispielHinzufuegen(System.Collections.Generic.IEnumerable{`0}@)">
+            <summary>
+            Fügt eine Liste an Beispielen zum Lernen hinzu.
+            </summary>
+            <param name="beispiele">Liste der Beispiele die hinzugefügt werden sollen.</param>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.BeispielHinzufuegen(`0@)">
+            <summary>
+            Fügt ein Beispiel zum Lernen hinzu.
+            </summary>
+            <param name="beispiel">Beispiel das hinzugefügt werden soll.</param>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.ErstelleListeAllerAttribute">
+            <summary>
+            Erstellt eine Liste aller Attribute aus <typeparamref name="TBsp"/> die zum 'anlernen' verwendet werden können.
+            </summary>
             <returns></returns>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.LerneBeispiele">
+            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.LerneBeispiele(System.Collections.Generic.List{System.Type}@,`1@)"/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.LerneBeispiele(System.Collections.Generic.List{System.Type}@)">
+            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.LerneBeispiele(System.Collections.Generic.List{System.Type}@,`1@)"/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.LerneBeispiele(`1@)">
+            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.LerneBeispiele(System.Collections.Generic.List{System.Type}@,`1@)"/>
+        </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IDialogLernen`2.LerneBeispiele(System.Collections.Generic.List{System.Type}@,`1@)">
+            <summary>
+            Wandelt die Liste der Beispiele in einen Entscheidungsbaum um.
+            </summary>
+            <param name="attributsliste">Liste der Attribute, die zur Bestimmung der Knoten verwendet werdern soll.</param>
+            <param name="defaultWert">Wert welcher verwendet wird, wenn ein Blatt "leer" bleiben sollte.</param>
         </member>
         <member name="T:EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel">
             <summary>
@@ -629,69 +861,6 @@
             <returns><i>True</i> wenn das Kind zur <paramref name="kategorie"/> ein Blatt ist, ansonsten <i>false</i>.</returns>
             <exception cref="T:System.ArgumentException">Wenn die übergebene Kategorie nicht existiert.</exception>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Interfaces.IHelper">
-            <summary>
-            Inteface um alle Helper-Funktionen nach extern mappen zu können.
-            </summary>
-            <remarks>
-            <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
-            </remarks>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Interfaces.IHelper.ErstellAttributliste``2">
-            <summary>
-            Liefert eine Liste aller <see cref="T:System.Enum"/>-Attribute der Klasse <typeparamref name="TBsp"/>. Dabei wird die Eigenschaft <typeparamref name="TResult"/> ignoriert.
-            </summary>
-            <typeparam name="TBsp">Type, dessen Attribute aufgelistet werden sollen.</typeparam>
-            <typeparam name="TResult">Type der Eigenschaft, welche beim Auflisten ignoriert werden soll, da sie dem Ergebnis entspricht.</typeparam>
-            <returns>Liste an Typen, die die Klasse <typeparamref name="TBsp"/> als Eigenschaften besitzt, kann auch eine leere Liste sein.</returns>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Interfaces.IHelper.GibAttributlisteAufKonsoleAus(System.Collections.Generic.List{System.Type}@)">
-            <summary>
-            Schreibt die Liste der übergebenen Attribute auf die Konsole.
-            </summary>
-            <remarks>
-            <b>Beispiel:</b><br />
-            <example>
-            <code>
-            Attributliste:<br />
-            *) Attraktiv<br />
-            *) Preis<br />
-            *) Loge<br />
-            *) Wetter<br />
-            *) ...
-             </code>
-            </example>
-            </remarks>
-            <param name="liste">Liste der auszugebenen Attribute.</param>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Interfaces.IHelper.GibBaumAus(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel@)">
-            <summary>
-            Gibt den Baum auf der Konsole aus.
-            </summary>
-            <remarks>
-            <b>Beispiel:</b><br />
-            <example>
-            <code>
-            Baumstruktur:<br />
-            Gruppe<br />
-             ├ Freunde: Kategorie<br />
-             │  ├ AC: Ja<br />
-             │  ├ KO: Attraktiv<br />
-            .....
-             </code>
-            </example>
-            </remarks>
-            <param name="wurzel">Wurzelknoten des Entscheidungsbaumes.</param>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Interfaces.IHelper.GibBeispiellisteAufKonsoleAus``2(System.Collections.Generic.List{``0}@)">
-            <summary>
-            Gibt die übergebene Beispielliste als Tabelle auf der Konsole aus.
-            </summary>
-            <typeparam name="TBsp">Klasse der Beispiel-Elemente.</typeparam>
-            <typeparam name="TResult">Eigenschaft des Ergebnisses, um es ganz rechts darzustellen.</typeparam>
-            <param name="beispielliste">Liste der auszugebenden Beispiele.</param>
-        </member>
         <member name="T:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2">
             <summary>
             Interface für den Algorithmus zum Lernen des Entscheidungsbaumes.
@@ -712,6 +881,9 @@
         <member name="M:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@)">
             <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@,`1@)"/>
         </member>
+        <member name="M:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2.Lerne(System.Collections.Generic.List{`0}@,`1@)">
+            <inheritdoc cref="M:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@,`1@)"/>
+        </member>
         <member name="M:EntscheidungsbaumLernen.Interfaces.ILernAlgoritmus`2.Lerne(System.Collections.Generic.List{`0}@,System.Collections.Generic.List{System.Type}@,`1@)">
             <summary>
             Erzeugt aus der Beispielliste einen Entscheidungsbaum, welcher im <see cref="T:EntscheidungsbaumLernen.Interfaces.IWissensspeicher"/> abgelegt wird.
@@ -727,8 +899,14 @@
             </summary>
             <remarks>
             <br /><b>Versionen:</b><br />
+            V1.1 14.06.2021 - Paz-Paz - 'Next', 'SetNaechsteInstanz' u. 'SpeichereBaum' hinzugefügt.<br />
             V1.0 06.06.2021 - Paz-Paz - erstellt<br />
             </remarks>
+        </member>
+        <member name="P:EntscheidungsbaumLernen.Interfaces.IWissensspeicher.Next">
+            <summary>
+            Nächster Wissensspeicher in der Kette, oder Null wenn keiner mehr gespeichert ist.
+            </summary>
         </member>
         <member name="M:EntscheidungsbaumLernen.Interfaces.IWissensspeicher.LadeBaum">
             <summary>
@@ -740,29 +918,14 @@
             <returns>Den gefundenen Baum. (Bzw. dessen Wurzel <see cref="T:EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel"/>.</returns>
             <exception cref="T:System.InvalidCastException">Wenn nichts gespeichertes gefunden weden konnte.</exception>
         </member>
-        <member name="T:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl">
-            <summary>
-            Interface für die Implementierung eines Wissensspeichers.
-            </summary>
-            <remarks>
-            Wurde vom <see cref="T:EntscheidungsbaumLernen.Interfaces.IWissensspeicher"/> extrahiert um  später ein eigenes Erstellen von Wissensspeichern zu ermöglichen.<br />
-            <br /><b>Versionen:</b><br />
-            V1.0 06.06.2021 - Paz-Paz - erstellt<br />
-            </remarks>
-        </member>
-        <member name="P:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl.Next">
-            <summary>
-            Nächster Wissensspeicher in der Kette, oder Null wenn keiner mehr gespeichert ist.
-            </summary>
-        </member>
-        <member name="M:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl)">
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IWissensspeicher.SetNaechsteInstanz(EntscheidungsbaumLernen.Interfaces.IWissensspeicher)">
             <summary>
             Setzt den nächsten Wissensspeicher in der Speicher-Kette.
             </summary>
             <param name="wissensspeicher">Zu hinterlegendes Speicher-Objekt.</param>
             <exception cref="T:System.InvalidCastException">Wenn zuvor schon ein Wissensspeicher hinzugefügt wurde.</exception>
         </member>
-        <member name="M:EntscheidungsbaumLernen.Interfaces.IWissensspeicherImpl.SpeichereBaum(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel)">
+        <member name="M:EntscheidungsbaumLernen.Interfaces.IWissensspeicher.SpeichereBaum(EntscheidungsbaumLernen.Interfaces.IEntscheidungsbaumWurzel)">
             <summary>
             Speichert den Baum.
             </summary>
