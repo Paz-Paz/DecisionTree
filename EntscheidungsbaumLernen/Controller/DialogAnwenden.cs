@@ -15,15 +15,23 @@ namespace EntscheidungsbaumLernen.Controller
   /// <br /><b>Versionen:</b><br />
   /// V1.0 14.06.2021 - Paz-Paz - erstellt<br />
   /// </remarks>
+  /// <inheritdoc cref="IDialogAnwenden{TEingabe, TResult}"/>
   internal class DialogAnwenden<TEingabe, TResult> : IDialogAnwenden<TEingabe, TResult> where TEingabe : class where TResult : Enum
   {
     #region Eigenschaften ..................................................................................................
 
+    /// <summary>
+    /// Wissensspeicher zum Auslesen des Baums.
+    /// </summary>
     private readonly IWissensspeicher _wissensspeicher;
 
     #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
 
+    /// <summary>
+    /// Liefert ein <see cref="DialogAnwenden{TEingabe, TResult}"/>-Objekt.
+    /// </summary>
+    /// <param name="wissensspeicher">Objekt zum Laden des Entscheidungsbaumes.</param>
     internal DialogAnwenden(IWissensspeicher wissensspeicher)
     {
       this._wissensspeicher = wissensspeicher ?? throw new ArgumentNullException(nameof(wissensspeicher));
@@ -64,6 +72,16 @@ namespace EntscheidungsbaumLernen.Controller
     #endregion .............................................................................................................
     #region Private Methoden ...............................................................................................
 
+    /// <summary>
+    /// Wertet die übergebene <paramref name="eingabe"/> Anhand des übergebenen <paramref name="entscheidungsbaumWurzel"/> aus.
+    /// </summary>
+    /// <remarks>
+    /// Funktion ist nicht viel mehr als eine rekursive Tiefensuche auf einen Baum.
+    /// </remarks>
+    /// <param name="entscheidungsbaumWurzel">Aktueller (Teil-) Baum zum Auswerten des Ausdrucks.</param>
+    /// <param name="eingabe">Eingabe-Objekt, welches ausgewerte werden soll.</param>
+    /// <param name="zaehler">Zähler, um Zahlen vor die Ausgewählten Attribute zu schreiben.</param>
+    /// <returns>Ergebnis der Auswertung.</returns>
     private TResult Auswerten(in IEntscheidungsbaumWurzel entscheidungsbaumWurzel, in TEingabe eingabe, in int zaehler)
     {
       Type attribut = entscheidungsbaumWurzel.KnotenTyp;
@@ -82,6 +100,12 @@ namespace EntscheidungsbaumLernen.Controller
       return this.Auswerten((IEntscheidungsbaumWurzel)kind, eingabe, zaehler + 1);
     }
 
+    /// <summary>
+    /// Stellt dem Benutzer Fragen anhand derer dann das Ergebnis generiert wird.
+    /// </summary>
+    /// <param name="baumwuzel">Wurzel des aktuellen (Teil-) Baumes um die nächste Frage auszuwählen.</param>
+    /// <param name="mitTitel">Flag um zu Steuern ob eine Titel-Zeile ausgegeben werden soll oder nicht.</param>
+    /// <returns>Ergebnis der Auswertung.</returns>
     private TResult Abfragen(in IEntscheidungsbaumWurzel baumwuzel, bool mitTitel)
     {
       if (mitTitel)
@@ -101,6 +125,11 @@ namespace EntscheidungsbaumLernen.Controller
       }
     }
 
+    /// <summary>
+    /// Fragt den Anwender nach dem Attribut und gibt die Kategorie, bzw. den Enum-Werte als String zurück.
+    /// </summary>
+    /// <param name="wurzelType">Aktueller (Teil-) Baum um den Dialog zu generieren und die Antwort auszuwerten.</param>
+    /// <returns>Name der vom Benutzer ausgewählten Kategorie.</returns>
     private string GetKategorie(Type wurzelType)
     {
       // Kategorie-Liste erstellen:

@@ -14,21 +14,39 @@ namespace EntscheidungsbaumLernen.Controller
   /// <br /><b>Versionen:</b><br />
   /// V1.0 14.06.2021 - Paz-Paz - erstellt<br />
   /// </remarks>
+  /// <inheritdoc cref="IDialogLernen{TBsp, TResult}"/>
   internal class DialogLernen<TBsp, TResult> : IDialogLernen<TBsp, TResult> where TBsp : class where TResult : Enum
   {
     #region Eigenschaften ..................................................................................................
 
+    /// <summary>
+    /// Liste der Beispielen, an Hand derer der Baum erstellt werden soll.
+    /// </summary>
     private readonly List<TBsp> _beispielListe = new List<TBsp>();
 
+    /// <summary>
+    /// Zu verwendender Algorithums zur Attributsauswahl.
+    /// </summary>
     private readonly ILernAlgoritmus<TBsp, TResult> _lernAlgoritmus;
 
+    /// <summary>
+    /// Objekt zum Speichern des Baumes.
+    /// </summary>
     private readonly IWissensspeicher _wissensspeicher;
 
+    /// <summary>
+    /// Flag ob schon was gelent wurde.
+    /// </summary>
     private bool _gelernt = false;
 
     #endregion .............................................................................................................
     #region Konstruktor ....................................................................................................
 
+    /// <summary>
+    /// Liefert ein <see cref="DialogLernen{TBsp, TResult}"/>-Objekt.
+    /// </summary>
+    /// <param name="lernAlgoritmus">Zu verwendender Algorithums zur Attributsauswahl.</param>
+    /// <param name="wissensspeicher">Objekt zum Speichern des Baumes.</param>
     internal DialogLernen(ILernAlgoritmus<TBsp, TResult> lernAlgoritmus, IWissensspeicher wissensspeicher)
     {
       this._lernAlgoritmus = lernAlgoritmus ?? throw new ArgumentNullException(nameof(lernAlgoritmus));
@@ -39,9 +57,7 @@ namespace EntscheidungsbaumLernen.Controller
     #region Getter/Setter ..................................................................................................
 
     /// <inheritdoc/>
-    internal TResult DefaultWert { get; set; } = default(TResult);
-
-    internal List<Type> Attributliste { get; set; } = null;
+    public TResult DefaultWert { get; set; } = default(TResult);
 
     #endregion .............................................................................................................
     #region Oeffentliche Methoden ..........................................................................................
@@ -49,7 +65,7 @@ namespace EntscheidungsbaumLernen.Controller
     /// <inheritdoc/>
     public void AusgabeBaumstruktur()
     {
-      if (_gelernt)
+      if (this._gelernt)
       {
         Ausgeber.GibBaumAus(this._wissensspeicher.LadeBaum());
       }

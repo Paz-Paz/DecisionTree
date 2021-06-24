@@ -16,7 +16,7 @@ namespace Entscheidungsbaum.Bsp2
       IDialogLernen<AuftragBeispiel, AuftragAnnehmen> dialogLernen = new DialogLernenFactory<AuftragBeispiel, AuftragAnnehmen>()
                                             .AddSpeicherRam()
                                             .AddSpeicherDatei(dateiname)
-                                            .AttributauswaehlerGainAbsolut()
+                                            .UseAttributauswaehlerGainAbsolut()
                                             .Build();
 
       dialogLernen.BeispielHinzufuegen(LerndatenErsteller.ErstelleBeispielListe());

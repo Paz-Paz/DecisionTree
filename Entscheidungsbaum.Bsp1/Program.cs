@@ -18,8 +18,8 @@ namespace KinoBeispiel
       Console.WriteLine("\n ---------- INITIIEREN ----------");
       Console.WindowHeight = 55;
       List<KinobesuchBeispiel> lerndaten = LerndatenErsteller.ErstelleLerndaten();
-      //List<Type> attributliste = new List<Type>() { typeof(Attraktiv), typeof(Preis) };
-      List<Type> attributliste = new List<Type>() { typeof(Attraktiv), typeof(Preis), typeof(Loge), typeof(Wetter), typeof(Warten), typeof(Besetzung), typeof(Kategorie), typeof(Land), typeof(Reserviert), typeof(Gruppe) };
+      List<Type> attributliste = new List<Type>() { typeof(Attraktiv), typeof(Preis) };
+      //List<Type> attributliste = new List<Type>() { typeof(Attraktiv), typeof(Preis), typeof(Loge), typeof(Wetter), typeof(Warten), typeof(Besetzung), typeof(Kategorie), typeof(Land), typeof(Reserviert), typeof(Gruppe) };
 
 
       Console.WriteLine("\n ---------- LERNEN ----------");
@@ -50,7 +50,7 @@ namespace KinoBeispiel
       IDialogLernen<TBeispiel, TReslt> dialogLernen = new DialogLernenFactory<TBeispiel, TReslt>()
                                       .AddSpeicherRam()
                                       .AddSpeicherDatei(@"D:\d.json")
-                                      .AttributauswaehlerErstesAttribut()
+                                      .UseAttributauswaehlerErstesAttribut()
                                       .Build();
       dialogLernen.BeispielHinzufuegen(lerndaten);
       dialogLernen.AusgabeLerndaten();
